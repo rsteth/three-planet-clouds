@@ -6,8 +6,9 @@ import * as THREE from 'three';
 // github.com/takram-design-engineering/three-geospatial/tree/main/packages/clouds.
 // No code or complete renderer from those projects is imported.
 export const HIGH_CLOUD_CONFIG = Object.freeze({
-  wavelength: 3.6,
-  erosion: 0.25,
+  wavelength: 18,
+  erosion: 0.22,
+  detailDistance: 160,
   extinction: 0.8,
   phaseG: 0.4,
   ambient: 0.62,
@@ -103,6 +104,9 @@ layout(location=1) out vec4 outAux;
 uniform sampler2D uSceneDepth;
 uniform samplerCube uEnvelope;
 uniform sampler3D uNoise;
+uniform sampler3D uDetail;
+uniform float uDensityModel;
+uniform float uDetailDistance;
 uniform sampler2D uBlueNoise;
 uniform float uBlueNoiseSize;
 uniform float uDiagnosticEmptyClouds;
@@ -125,6 +129,29 @@ float densityAt(vec3 worldPosition){
  float radius=length(local);
  if(radius<uShell.x||radius>uShell.y)return 0.;
  vec4 envelope=texture(uEnvelope,local/max(radius,.0001));
+ if(uDensityModel>.5){
+  // Weather is a continuous coverage/height/type map. The 3D shape signal,
+  // not a min/max union of ellipsoids, decides occupancy along the ray.
+  float coverage=envelope.r;
+  if(coverage<.025)return 0.;
+  vec2 heights=uShell.x+envelope.gb*(uShell.y-uShell.x);
+  if(radius<=heights.x||radius>=heights.y)return 0.;
+  float h=(radius-heights.x)/max(.0001,heights.y-heights.x);
+  float type=envelope.a;
+  float profile=smoothstep(0.,.07,h)*(1.-smoothstep(.78-.23*type,1.,h));
+  if(profile<=.001)return 0.;
+  vec3 shapePosition=local/uWavelength;
+  float shape=clamp((texture(uNoise,shapePosition).r-.24)/.58,0.,1.);
+  float threshold=.32+.5*(1.-coverage);
+  float body=smoothstep(threshold,threshold+.18,shape*profile);
+  if(body<=.0001)return 0.;
+  float detailFade=1.-smoothstep(uDetailDistance*.5,uDetailDistance,length(worldPosition-uCameraPosition));
+  if(detailFade>.01&&body<.999){
+   float detail=texture(uDetail,local/(uWavelength*.13)).r;
+   body=clamp(body-uErosion*detailFade*(1.-detail)*(1.-body),0.,1.);
+  }
+  return body*mix(.65,1.,type)*smoothstep(.025,.18,coverage);
+ }
  if(envelope.a<.002)return 0.;
  vec3 decoded=envelope.rgb/max(envelope.a,.0001);
  vec2 heights=uShell.x+decoded.rg*(uShell.y-uShell.x);
@@ -401,6 +428,7 @@ function makeConfig(config) {
   return {
     wavelength: configuredNumber(config.wavelength, defaults.wavelength, 0.1, 100),
     erosion: configuredNumber(config.erosion, defaults.erosion, 0, 0.9),
+    detailDistance: configuredNumber(config.detailDistance, defaults.detailDistance, 1, 10000),
     extinction: configuredNumber(config.extinction, defaults.extinction, 0.01, 8),
     phaseG: configuredNumber(config.phaseG, defaults.phaseG, -0.85, 0.85),
     ambient: configuredNumber(config.ambient, defaults.ambient, 0, 5),
@@ -481,6 +509,9 @@ export function createHighCloudRenderer({ renderer, bounds, planetRadius, config
     uSceneDepth: { value: null },
     uEnvelope: { value: null },
     uNoise: { value: null },
+    uDetail: { value: null },
+    uDensityModel: { value: 0 },
+    uDetailDistance: { value: settings.detailDistance },
     uBlueNoise: { value: null },
     uBlueNoiseSize: { value: 32 },
     uDiagnosticEmptyClouds: { value: 0 },
@@ -619,30 +650,50 @@ export function createHighCloudRenderer({ renderer, bounds, planetRadius, config
       resources.envelope.dispose();
       for (const face of resources.faces) face.dispose();
       resources.noise.dispose();
+      resources.detail?.dispose();
       resources.blueNoise.dispose();
       resources = null;
     }
     marchUniforms.uEnvelope.value =
       marchUniforms.uNoise.value =
+      marchUniforms.uDetail.value =
       marchUniforms.uBlueNoise.value =
         null;
   }
   function setResources(data) {
     if (disposed) return false;
     if (
-      !data?.envelope?.faces ||
-      data.envelope.faces.length !== 6 ||
+      !(data?.weather ?? data?.envelope)?.faces ||
+      (data.weather ?? data.envelope).faces.length !== 6 ||
       !data.noise?.data ||
       !data.blueNoise?.data
     )
       return false;
-    const e = data.envelope,
+    const weather = Boolean(data.weather);
+    if (weather && (data.version !== 2 || data.model !== 'weather' || !data.detail)) return false;
+    const e = data.weather ?? data.envelope,
       n = data.noise,
       b = data.blueNoise;
+    const validSize = (value) => Number.isInteger(value) && value > 0 && value <= 256;
     if (
+      !validSize(e.size) ||
+      !validSize(n.size) ||
+      !validSize(b.size) ||
+      !(n.data instanceof Uint8Array) ||
+      !(b.data instanceof Uint8Array) ||
       !e.faces.every((face) => face instanceof Uint8Array && face.length === e.size * e.size * 4) ||
       n.data.length !== n.size ** 3 ||
-      b.data.length !== b.size ** 2
+      b.data.length !== b.size ** 2 ||
+      (weather &&
+        (!validSize(data.detail.size) ||
+          !(data.detail.data instanceof Uint8Array) ||
+          data.detail.data.length !== data.detail.size ** 3)) ||
+      (data.bounds &&
+        (!Number.isFinite(data.bounds.inner) ||
+          !Number.isFinite(data.bounds.outer) ||
+          data.bounds.inner < 0 ||
+          data.bounds.outer <= data.bounds.inner)) ||
+      (weather && !data.bounds)
     )
       return false;
     releaseResources();
@@ -666,6 +717,18 @@ export function createHighCloudRenderer({ renderer, bounds, planetRadius, config
     noise.wrapS = noise.wrapT = noise.wrapR = THREE.RepeatWrapping;
     noise.unpackAlignment = 1;
     noise.needsUpdate = true;
+    let detail = null;
+    if (weather) {
+      const d = data.detail;
+      detail = new THREE.Data3DTexture(d.data, d.size, d.size, d.size);
+      detail.format = THREE.RedFormat;
+      detail.type = THREE.UnsignedByteType;
+      detail.internalFormat = 'R8';
+      detail.minFilter = detail.magFilter = THREE.LinearFilter;
+      detail.wrapS = detail.wrapT = detail.wrapR = THREE.RepeatWrapping;
+      detail.unpackAlignment = 1;
+      detail.needsUpdate = true;
+    }
     const blueNoise = new THREE.DataTexture(
       b.data,
       b.size,
@@ -676,9 +739,23 @@ export function createHighCloudRenderer({ renderer, bounds, planetRadius, config
     blueNoise.minFilter = blueNoise.magFilter = THREE.NearestFilter;
     blueNoise.wrapS = blueNoise.wrapT = THREE.RepeatWrapping;
     blueNoise.needsUpdate = true;
-    resources = { faces, envelope, noise, blueNoise };
+    resources = {
+      faces,
+      envelope,
+      noise,
+      detail,
+      blueNoise,
+      model: weather ? 'weather' : 'legacy',
+      bytes:
+        e.faces.reduce((sum, f) => sum + f.byteLength, 0) +
+        n.data.byteLength +
+        b.data.byteLength +
+        (weather ? data.detail.data.byteLength : 0),
+    };
     marchUniforms.uEnvelope.value = envelope;
     marchUniforms.uNoise.value = noise;
+    marchUniforms.uDetail.value = detail ?? noise;
+    marchUniforms.uDensityModel.value = weather ? 1 : 0;
     marchUniforms.uBlueNoise.value = blueNoise;
     marchUniforms.uBlueNoiseSize.value = b.size;
     if (data.bounds) {
@@ -1109,7 +1186,9 @@ export function createHighCloudRenderer({ renderer, bounds, planetRadius, config
       antialiasing: 'display-space FXAA',
       primarySamples: 48,
       shadowSamples: 2,
-      resourceBytes: resources ? 6 * 128 * 128 * 4 + 64 ** 3 + 32 ** 2 : 0,
+      resourceBytes: resources?.bytes ?? 0,
+      densityModel: resources?.model ?? null,
+      detailDistance: settings.detailDistance,
       gpuTimerSupported: Boolean(timerExtension),
       gpuMs: lastGpuMs,
       gpuP95Ms: sorted.length ? sorted[Math.floor((sorted.length - 1) * 0.95)] : null,

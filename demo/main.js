@@ -68,10 +68,23 @@ function setView(next) {
   controls.maxDistance = 380;
   controls.enableZoom = true;
   if (next === 'ant') {
-    const up = new THREE.Vector3().fromArray(clouds.testPuff().center).normalize();
+    const up = new THREE.Vector3()
+      .fromArray(
+        $('pose').value === 'clear' ? clouds.stats().clearDirection : clouds.testPuff().center,
+      )
+      .normalize();
     const tangent = new THREE.Vector3(0, 1, 0).cross(up).normalize();
-    camera.position.copy(up).multiplyScalar(43.2);
-    const direction = tangent.clone().multiplyScalar(0.7).addScaledVector(up, 0.7).normalize();
+    camera.position
+      .copy(up)
+      .multiplyScalar(
+        $('pose').value === 'height' ? Math.hypot(...clouds.testPuff().center) : 43.2,
+      );
+    const tilt = $('pose').value === 'horizon' ? 0.05 : 0.55;
+    const direction = tangent
+      .clone()
+      .multiplyScalar(1 - tilt)
+      .addScaledVector(up, tilt)
+      .normalize();
     controls.target.copy(camera.position).addScaledVector(direction, 0.01);
     camera.up.copy(up);
     controls.minDistance = 0.01;
@@ -80,16 +93,18 @@ function setView(next) {
   } else {
     controls.target.set(0, 0, 0);
     camera.position
-      .fromArray(clouds.testPuff().center)
+      .fromArray(
+        $('pose').value === 'clear' ? clouds.stats().clearDirection : clouds.testPuff().center,
+      )
       .normalize()
-      .addScaledVector(sunDirection, 0.3)
+      .addScaledVector(sunDirection, $('pose').value === 'clear' ? 0 : 0.3)
       .normalize()
       .multiplyScalar(next === 'system' ? 270 : 145);
   }
   camera.lookAt(controls.target);
   controls.update();
 }
-function regenerate() {
+function regenerate({ preserveCamera = false } = {}) {
   const saved = clouds?.getPreferences();
   measurement?.dispose();
   clouds?.dispose();
@@ -102,11 +117,12 @@ function regenerate() {
     terrainRadius: 43,
     planetRadius: 40,
     seed,
+    model: $('model').value,
     storage: null,
   });
   if (saved) clouds.setPreferences(saved);
   measurement = createCloudMeasurement(renderer, () => clouds.resetGpuTimings());
-  setView(view);
+  if (!preserveCamera) setView(view);
 }
 regenerate();
 $('quality').addEventListener('change', () =>
@@ -116,6 +132,8 @@ $('view').addEventListener('change', () => setView($('view').value));
 for (const key of ['ant', 'world', 'system'])
   $(key).addEventListener('change', () => clouds.setPreferences({ [key]: $(key).checked }));
 $('regenerate').addEventListener('click', regenerate);
+$('model').addEventListener('change', () => regenerate({ preserveCamera: true }));
+$('pose').addEventListener('change', () => setView(view));
 $('measure').addEventListener('click', () => measurement.start());
 function resize() {
   renderer.setSize(innerWidth, innerHeight);
@@ -134,7 +152,11 @@ function updateStatus() {
       {
         browser: navigator.userAgent,
         seed,
+        model: s.model,
+        modelVersion: s.modelVersion,
         view,
+        pose: $('pose').value,
+        camera: { position: camera.position.toArray(), target: controls.target.toArray() },
         frame,
         requestedQuality: s.requestedQuality,
         effectiveQuality: s.effectiveQuality,
@@ -168,6 +190,8 @@ function updateStatus() {
     ],
     ['Cloud draws', s.cloudDrawCalls],
     ['Resource state', s.resourceReadiness],
+    ['Cloud model', s.model],
+    ['Weather regions', s.weatherRegions.length],
   ];
   $('metrics').replaceChildren(
     ...entries.flatMap(([key, value]) => {

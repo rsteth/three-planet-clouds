@@ -20,7 +20,7 @@ Standalone changes:
 - Strengthen the Low hot-path test so its source selection cannot silently match an empty string after formatting.
 - Add shader lineage notices, package/API checks, a procedural demo, and documentation.
 
-The numerical layout, density generation, sample budgets, and composition algorithms are retained from the source revision. The demo's planet and controls are new; they do not depend on ant-world assets.
+The v0.1 numerical layout/density remains available in explicit legacy mode. Version 0.2 adds newly authored weather and hierarchy modules, a new density construction, and the coordinated worker/Low changes described in [Enhancements](ENHANCEMENTS.md). The sample caps and composition pipeline are retained. The demo's planet and controls do not depend on ant-world assets. The original source hashes remain historical extraction records, not hashes of the enhanced files.
 
 ## External work
 
@@ -36,4 +36,4 @@ The original generation script was not present in the inspected source tree. The
 
 ## Naming and publication
 
-three-planet-clouds is the chosen local repository/package name for this extraction. No npm namespace ownership or public remote URL is implied. Add verified repository, bugs, and homepage fields after choosing a remote. Do not substitute an invented URL.
+The public repository is [rsteth/three-planet-clouds](https://github.com/rsteth/three-planet-clouds). Package metadata names that verified destination. The package name does not imply an npm registry publication.

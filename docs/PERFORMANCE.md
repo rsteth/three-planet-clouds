@@ -1,5 +1,7 @@
 # Performance and measurement
 
+Version 0.2 preserves the draw/sample/target caps but changes weather coverage and density work. Historical timings below belong to legacy mode. The new weather mode needs matched measurements on the actual target devices.
+
 ## Work budget
 
 Low submits one instanced mesh with at most 180 × 120 = **21,600 triangles**. Opaque depth rejection and ordinary back-face culling help, but transparent overdraw can dominate. Sorting is bounded by the small puff count, reuses arrays, and avoids uploads when instance order is unchanged.
@@ -26,6 +28,8 @@ Baked data, excluding driver overhead and duplicates:
 | 32² R8 jitter                 |                     1,024 |
 | Total                         | 656,384 (about 0.626 MiB) |
 
+The weather model adds an independently seeded **32³ R8 detail texture: 32,768 bytes**. Its baked total is **689,152 bytes, about 0.657 MiB**; the table above describes legacy resources. Weather replaces the envelope cubemap with an equally sized coverage/base/top/development cubemap. Detail fades with distance and is skipped for empty or solid samples. The added fetch and changed occupied paths can increase GPU time even though the primary sample cap is unchanged.
+
 High render-target storage is approximately:
 
 ```text
@@ -38,9 +42,21 @@ total ≈ 24 W H + 16 w h bytes
 
 At 1920 × 1080 with 682 × 384 clouds, this is approximately **51.46 MiB**, plus the baked data. At 2352 × 1246 it is about **71.1 MiB**. These are attachment-format estimates, not measured GPU allocation: browser backbuffers, antialiasing, padding, driver copies, shaders, the rest of the scene, and CPU arrays are additional. Texture source arrays may remain retained after GPU upload.
 
-Low alone does not allocate these High targets. Selecting Low after warming High retains them until disposal. stats().high.resourceBytes describes baked texture data only, not total GPU memory. renderer.info.memory counts objects, not bytes.
+Low alone does not allocate these High targets. Selecting Low after warming High retains them until disposal. stats().high.resourceBytes describes the actual received baked texture arrays only, not total GPU memory. renderer.info.memory counts objects, not bytes.
 
-## Historical ant-world measurements
+## Version 0.2 demo capture
+
+A frozen seed-39 cloudy World pose was captured once per setting on an **Apple M5, machine model Mac17,3, macOS 26.6.2, Chrome 155 / ANGLE Metal**, at **1920 × 1080**, pixel ratio **1.5**. All three captures used the exact same camera and paused wind. Each whole-frame GPU summary contains 240 samples after the separate isolated-query phase.
+
+| Weather setting | Whole-frame GPU p50 | Whole-frame GPU p95 |
+| --------------- | ------------------: | ------------------: |
+| Clouds off      |             1.71 ms |             5.93 ms |
+| Low             |             1.81 ms |             5.81 ms |
+| High            |             7.01 ms |             9.90 ms |
+
+These are demo totals on one device, not incremental cloud costs or ant-world timings. The slightly lower Low p95 than Off illustrates run-to-run variance; it does not imply negative overhead. High minus Off is about 3.97 ms between separate p95 summaries, not a paired per-frame p95 cost. The complete record is in [weather-browser-smoke.json](weather-browser-smoke.json). Repeat matched captures on actual target devices before setting a broad performance claim.
+
+## Historical ant-world measurements for legacy mode
 
 These numbers were recorded in the source project's README at commit **23eb201f9a8a63ab1a8963ca05814597f96321a4**, before this extraction. They are not a new benchmark of the standalone demo.
 

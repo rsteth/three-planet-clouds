@@ -19,6 +19,10 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
   );
   geometry.setAttribute('instanceDensity', densityAttribute);
   geometry.setAttribute('instanceInside', insideAttribute);
+  const baseAttribute = new THREE.InstancedBufferAttribute(new Float32Array(count), 1).setUsage(
+    THREE.DynamicDrawUsage,
+  );
+  geometry.setAttribute('instanceBase', baseAttribute);
   const uniforms = {
     uSunDirection: { value: new THREE.Vector3(-0.4, 0.8, 0.5).normalize() },
     uPlanetCenter: { value: new THREE.Vector3() },
@@ -34,6 +38,7 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
     vertexShader: `
    attribute float instanceDensity;
    attribute float instanceInside;
+   attribute float instanceBase;
    varying float vDensity;
    varying float vInside;
    varying vec3 vWorld;
@@ -45,7 +50,14 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
     mat3 m=mat3(instanceMatrix);
     // Cofactors implement the inverse transpose for non-uniform puff radii.
     vec3 n=normalize(cross(m[1],m[2])*normal.x+cross(m[2],m[0])*normal.y+cross(m[0],m[1])*normal.z);
-    vec4 world=modelMatrix*instanceMatrix*vec4(position,1.0);
+    vec4 local=instanceMatrix*vec4(position,1.0);
+    float radius=length(local.xyz);
+    // Project the lower vertices to the bank's shared spherical cloud base.
+    // This makes a closed, inexpensive cap instead of discarding the underside.
+    if(instanceBase>0.&&radius<instanceBase){
+     local.xyz*=instanceBase/max(radius,.0001);n=-normalize(local.xyz);
+    }
+    vec4 world=modelMatrix*local;
     vWorld=world.xyz;vNormal=normalize(mat3(modelMatrix)*n);
     // Broad ambient and Lambert terms vary smoothly over each ellipsoid.
     // Interpolate them from vertices instead of normalizing radial/sun vectors
@@ -105,8 +117,8 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
     sortPasses: 0,
     sortComparisons: 0,
     instanceUploads: 1,
-    attributeUploads: 2,
-    uploadedBytes: count * 18 * 4,
+    attributeUploads: 3,
+    uploadedBytes: count * 19 * 4,
     insideTests: 0,
     materialVariantChanges: 0,
   };
@@ -207,6 +219,7 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
     centers.set(puff.center, centerOffset);
     order[i] = uploadedOrder[i] = i;
     densityAttribute.array[i] = puff.density;
+    baseAttribute.array[i] = puff.baseRadius ?? 0;
     for (let axis = 0; axis < 3; axis++)
       for (let k = 0; k < 3; k++) {
         matrices[offset + axis * 4 + k] = puff.basis[axis][k] * puff.radii[axis];
@@ -224,6 +237,7 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
   mesh.instanceMatrix.needsUpdate = true;
   densityAttribute.needsUpdate = true;
   insideAttribute.needsUpdate = true;
+  baseAttribute.needsUpdate = true;
 
   function update({ camera, windMatrix, sunDirection, visible: enabled = true }) {
     actualDrawCalls = 0;
@@ -266,7 +280,11 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
       const px = x * inverseAxes[a] + y * inverseAxes[a + 1] + z * inverseAxes[a + 2];
       const py = x * inverseAxes[a + 3] + y * inverseAxes[a + 4] + z * inverseAxes[a + 5];
       const pz = x * inverseAxes[a + 6] + y * inverseAxes[a + 7] + z * inverseAxes[a + 8];
-      const flag = px * px + py * py + pz * pz < 1 ? 1 : 0;
+      const flag =
+        px * px + py * py + pz * pz < 1 &&
+        (puffs[i].baseRadius === undefined || cameraLocal.lengthSq() >= puffs[i].baseRadius ** 2)
+          ? 1
+          : 0;
       insideCount += flag;
       if (inside[i] !== flag) {
         inside[i] = flag;
@@ -315,13 +333,15 @@ export function createLowCloudRenderer({ scene, field, renderer }) {
           target = i * 16;
         for (let k = 0; k < 16; k++) destination[target + k] = matrices[source + k];
         densityAttribute.array[i] = puffs[id].density;
+        baseAttribute.array[i] = puffs[id].baseRadius ?? 0;
         uploadedOrder[i] = id;
       }
       mesh.instanceMatrix.needsUpdate = true;
       densityAttribute.needsUpdate = true;
+      baseAttribute.needsUpdate = true;
       metrics.instanceUploads++;
-      metrics.attributeUploads++;
-      metrics.uploadedBytes += count * 17 * 4;
+      metrics.attributeUploads += 2;
+      metrics.uploadedBytes += count * 18 * 4;
     }
     if (orderChanged || flagsChanged) {
       for (let i = 0; i < count; i++) insideAttribute.array[i] = inside[order[i]];

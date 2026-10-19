@@ -1,6 +1,25 @@
 # Validation
 
-## Release checks — 2026-10-18
+## Version 0.2 weather enhancement
+
+Nine automated entry points pass on Node.js 25.9.0 with Three r169. Legacy fixtures are explicitly exercised in legacy mode; the default weather mode has additional independent checks:
+
+- 156 seed/radius combinations verify determinism, 18–24 banks, the 180-puff ceiling, variable family populations, hierarchy parent links, actual weather-based placement, shared bases, and analytic terrain/shell bounds.
+- The sampled cases produced seven distinct bank populations and 52 family distributions, with a maximum of 156 puffs. At least 15.5% of probe directions had coverage above 0.2 and at least 53.5% were nearly clear. These are scoped regression statistics, not guaranteed global weather percentages.
+- Weather cubemap quantization, 72 shared-edge/corner comparisons, finite polar values, and continuous coverage across support boundaries.
+- Seeded continuous density preserves separated radial structures instead of filling one min/max interval; profile/coverage and erosion behavior are checked.
+- Low base attributes remain aligned with sorted transforms, hidden updates do not upload them, and containment respects the capped underside.
+- A real v2 module-worker bridge produces deterministic base/detail/weather arrays and nine transferred buffers; invalid descriptors/versions are rejected.
+- High accepts weather and legacy resources, rejects malformed/mixed data, reports actual byte counts, and restores rendering state.
+- The coordinator rejects a stale v1 worker response for a v2 request with an explicit Low fallback.
+
+Browser validation uses the real module worker and compiled shaders. Both models × both qualities × three views × visible/hidden produced **24 passing cases**. Weather Ant inspection poses add eight Low/High cases. The model comparison preserved the exact camera position. The current weather data occupied **689,152 bytes**, used three High render targets, and had ten live scene-wide textures after warming (one additional texture versus legacy).
+
+The recorded details, lifecycle checks, captures and measurement conditions are in [weather-browser-smoke.json](weather-browser-smoke.json). New preview images show the actual weather model. Mobile and low-end device performance remain outside this local run.
+
+The v0.2 runtime tarball was installed into an independent consumer. Its exact Three peer, weather exports, new runtime modules, migration documentation, and retained license files resolved successfully, and its packaged v2 module worker completed the full weather/detail bake. Formatting and local documentation links were checked.
+
+## Version 0.1 extraction checks — 2026-10-18
 
 The standalone release was checked with **Node.js 25.9.0** and the pinned **Three.js 0.169.0**. Node 22 is the declared minimum; it was not separately executed in this extraction session.
 
@@ -17,7 +36,7 @@ Eight automated test entry points cover:
 
 Many renderer checks use a mocked GL context. They establish state and algorithm contracts, not shader compilation or image quality. The volume worker test executes real generation code. Seed fixtures quantize layout coordinates to avoid false failures from last-bit cross-platform trigonometry differences.
 
-## Standalone browser smoke test
+## Version 0.1 standalone browser smoke test
 
 The runtime tarball was also installed into a separate temporary consumer. Its pinned peer resolved to Three r169, root and subpath imports resolved, and its packaged module worker completed a full seed-39 bake with transferred texture buffers. Local documentation links and the packaged license/worker file list were checked. Formatting checks passed.
 

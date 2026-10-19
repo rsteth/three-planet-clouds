@@ -9,8 +9,8 @@ import {
   resolveCloudView,
 } from './cloud-preferences.js';
 export const CLOUD_CONFIG = Object.freeze({
-  wavelength: 4.5,
-  erosion: 0.25,
+  wavelength: 18,
+  erosion: 0.22,
   extinction: 0.8,
   phaseG: 0.4,
 });
@@ -20,6 +20,8 @@ export function createCloudSystem({
   terrainRadius,
   planetRadius = terrainRadius,
   seed,
+  model = 'weather',
+  config = {},
   storage,
   workerFactory,
   artisticHaze,
@@ -44,7 +46,7 @@ export function createCloudSystem({
     high = null,
     highFailed = false,
     diagnosticEmptyClouds = false;
-  const field = createCloudField({ seed, terrainRadius }),
+  const field = createCloudField({ seed, terrainRadius, model }),
     low = createLowCloudRenderer({ scene, field, renderer }),
     windMatrix = new THREE.Matrix4(),
     windInverse = new THREE.Matrix4(),
@@ -72,8 +74,17 @@ export function createCloudSystem({
       worker.onmessage = ({ data }) => {
         if (disposed || data.requestId !== id || id !== requestId) return;
         if (data.type === 'ready') {
-          resources = data;
-          resourceState = 'ready';
+          if (
+            field.weather &&
+            (data.version !== 2 || data.model !== 'weather' || !data.weather || !data.detail)
+          ) {
+            resourceState = 'failed';
+            resourceError =
+              'Expected v2 weather resources; update the module worker with the renderer';
+          } else {
+            resources = data;
+            resourceState = 'ready';
+          }
         } else {
           resourceState = 'failed';
           resourceError = data.error ?? 'Cloud resource generation failed';
@@ -92,8 +103,9 @@ export function createCloudSystem({
         type: 'bake',
         requestId: id,
         puffs: field.puffs,
-        bounds: field.bounds,
-        seed,
+        bounds: field.weather?.bounds ?? field.bounds,
+        ...(field.weather ? { weather: field.weather, version: 2 } : {}),
+        seed: field.weather?.seed ?? seed,
       });
     } catch (e) {
       resourceState = 'failed';
@@ -128,8 +140,18 @@ export function createCloudSystem({
     if (highFailed || !renderer || resourceState !== 'ready') return false;
     try {
       if (!high) {
-        high = highFactory({ renderer, bounds: field.bounds, planetRadius, config: CLOUD_CONFIG });
-        high.setResources(resources);
+        high = highFactory({
+          renderer,
+          bounds: field.bounds,
+          planetRadius,
+          config: {
+            ...CLOUD_CONFIG,
+            ...(model === 'legacy' ? { wavelength: 4.5, erosion: 0.25 } : {}),
+            ...config,
+          },
+        });
+        if (high.setResources(resources) === false)
+          throw new Error('Cloud resources rejected; check worker and renderer versions');
         high.setDiagnosticEmptyClouds?.(diagnosticEmptyClouds);
       }
       const state = high.stats();
@@ -195,12 +217,15 @@ export function createCloudSystem({
       h = high?.stats();
     return {
       diagnosticEmptyClouds,
+      model: field.model,
+      modelVersion: field.modelVersion,
       requestedQuality: preferences.quality,
       effectiveQuality: effective,
       resolvedView: view,
       visible,
       preferences: { ...preferences },
       resourceReadiness: resourceState,
+      resourceTimings: resources?.timings ? { ...resources.timings } : null,
       resourceError: resourceError ?? h?.failure ?? null,
       targetDimensions: h?.dimensions ?? null,
       high: h ?? null,
@@ -236,7 +261,13 @@ export function createCloudSystem({
         : 0,
       cloudOpacity: 0.8,
       volumeMethod:
-        effective === 'high' ? 'single shell volumetric raymarch' : 'instanced shaded ellipsoids',
+        effective === 'high'
+          ? field.weather
+            ? 'continuous weather-driven density'
+            : 'legacy envelope raymarch'
+          : field.weather
+            ? 'hierarchical instanced cloud shapes'
+            : 'instanced shaded ellipsoids',
       renderCalls,
       directCalls,
       highCalls,

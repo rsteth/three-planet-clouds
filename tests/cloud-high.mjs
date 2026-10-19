@@ -353,6 +353,45 @@ assert.equal(high.stats().skipReason, 'external-render-target');
 renderer.setRenderTarget(null);
 high.dispose();
 high.dispose();
+// v2 resources use the same postprocess state contracts, with one additional
+// density texture. Reject incomplete/mixed worker responses before allocation.
+const v2Renderer = mockRenderer(),
+  v2High = createHighCloudRenderer({
+    renderer: v2Renderer,
+    bounds: { inner: 40, outer: 45 },
+    planetRadius: 39,
+  });
+const baseResources = resourceData();
+const v2Resources = {
+  version: 2,
+  model: 'weather',
+  weather: baseResources.envelope,
+  noise: baseResources.noise,
+  detail: { size: 1, data: new Uint8Array([128]) },
+  blueNoise: baseResources.blueNoise,
+  bounds: baseResources.bounds,
+};
+assert.equal(v2High.setResources({ ...v2Resources, version: 1 }), false);
+assert.equal(v2High.setResources({ ...v2Resources, detail: null }), false);
+assert.equal(
+  v2High.setResources({ ...v2Resources, detail: { size: 2, data: new Uint8Array(1) } }),
+  false,
+);
+assert.equal(v2High.setResources(v2Resources), true);
+assert.equal(v2High.stats().densityModel, 'weather');
+assert.equal(v2High.stats().resourceBytes, 27);
+assert.equal(v2High.render(args), true);
+assert.equal(v2Renderer.state.draws, 4);
+assert.equal(v2Renderer.getRenderTarget(), null);
+assert.equal(v2High.setResources(resourceData()), true);
+assert.equal(v2High.stats().densityModel, 'legacy');
+assert.equal(v2High.render(args), true);
+v2High.dispose();
+v2High.dispose();
+assert.equal(v2Renderer.state.disposedTargets, 3);
+console.log(
+  'PASS v2 High resources, malformed/mixed version rejection, dynamic texture bytes, weather/legacy switching, and renderer restoration.',
+);
 assert.equal(renderer.state.disposedTargets, 6);
 assert.equal(high.render(args), false);
 for (const scenario of [{ supported: false }, { framebuffer: false }]) {

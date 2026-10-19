@@ -1,8 +1,8 @@
 # API reference
 
-ES modules; JavaScript; exact peer dependency **three@0.169.0**. Import from the package root for the coordinator, or from explicit subpaths for individual parts. The worker entry is a worker script, not an ordinary browser module.
+Version 0.2.0 uses ES modules and the exact peer **three@0.169.0**. The lifecycle and visibility API remain compatible; the default shape model and worker resource protocol change. [Ant-world migration](ANT-WORLD-MIGRATION.md) covers the game port.
 
-## createCloudSystem(options)
+## createCloudSystem
 
 ```js
 import { createCloudSystem } from 'three-planet-clouds';
@@ -12,149 +12,177 @@ const clouds = createCloudSystem({
   terrainRadius: 43,
   planetRadius: 40,
   seed: 39,
+  model: 'weather',
+  config: { wavelength: 18, erosion: 0.22, detailDistance: 160 },
   storage: null,
 });
 ```
 
-| Option        | Contract                                                                                                                                 |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| scene         | Three.Scene to which the Low group is attached. Required for normal rendering.                                                           |
-| renderer      | Three.WebGLRenderer. The system renders the complete scene through it.                                                                   |
-| terrainRadius | Positive finite maximum surface radius; determines nominal altitude and shell clearance.                                                 |
-| planetRadius  | Solid sphere radius for sunlight blocking; defaults to terrainRadius. Use a meaningful positive value no greater than the terrain bound. |
-| seed          | Use an explicit unsigned 32-bit integer for reproducible layout and density.                                                             |
-| storage       | Storage-like object with getItem/setItem. Undefined tries global localStorage; null disables persistence. Exceptions are caught.         |
-| workerFactory | Optional function returning a Worker-compatible object. Default is a relative module worker.                                             |
-| artisticHaze  | Optional adapter for the original artistic limb haze; see Integration.                                                                   |
-| highFactory   | Dependency injection hook. Receives renderer, bounds, planetRadius, and coordinator config; normally leave this unchanged.               |
+| Option        | Contract                                                                            |
+| ------------- | ----------------------------------------------------------------------------------- |
+| scene         | Three.Scene receiving the Low group; required for normal rendering                  |
+| renderer      | Three.WebGLRenderer; system owns the complete scene render                          |
+| terrainRadius | Positive finite terrain envelope                                                    |
+| planetRadius  | Solid sunlight-blocking sphere; defaults to terrainRadius                           |
+| seed          | Explicit unsigned 32-bit seed recommended; weather defaults to seed zero            |
+| model         | 'weather' default or 'legacy'; other values throw                                   |
+| config        | Optional High configuration overrides, merged over the selected model's defaults    |
+| storage       | Undefined tries localStorage; null disables; Storage-like getItem/setItem accepted  |
+| workerFactory | Optional Worker-compatible factory; default is a relative module worker             |
+| artisticHaze  | Existing optional artistic haze adapter                                             |
+| highFactory   | Advanced dependency injection hook; receives renderer, bounds, planetRadius, config |
 
-### Lifecycle
+Model and config are construction options. Dispose/recreate to change them. They are not persisted in quality preferences.
 
-| Method                  | Behavior                                                                                                                                              |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| update(dt, options)     | Advance wind in seconds, resolve view and visibility, update sun direction, start a lazy bake if visible High is requested. Call before rendering.    |
-| render(scene, camera)   | Render exactly one complete frame through High or direct scene rendering with Low. The scene parameter can be undefined to use the constructor scene. |
-| resize()                | Notify after renderer size/projection changes. High targets resize lazily on a subsequent render.                                                     |
-| setPreferences(partial) | Merge, validate, optionally persist, and return a copy of preferences.                                                                                |
-| getPreferences()        | Return a copy.                                                                                                                                        |
-| stats()                 | Allocate and return diagnostic data. Prefer occasional polling rather than every animation frame.                                                     |
-| resetGpuTimings()       | Discard isolated cloud timing history and invalidate outstanding samples.                                                                             |
-| dispose()               | Idempotently remove Low, terminate the worker, dispose High textures/targets/materials, and restore patched scene material hooks.                     |
+## Lifecycle and views
 
-Advanced diagnostics: `prepare(camera)` updates the Low draw state without rendering; it is not needed before `render`. `setDiagnosticEmptyClouds(true)` preserves the High pipeline with zero cloud density for composition checks. `testPuff()` returns the first canonical puff **by reference** for camera positioning; do not mutate it.
+| Method                  | Behavior                                                                                     |
+| ----------------------- | -------------------------------------------------------------------------------------------- |
+| update(dt, options)     | Advance wind in seconds, resolve visibility, update sun, start lazy resources                |
+| render(scene, camera)   | Produce one complete scene frame with High or Low fallback                                   |
+| resize()                | Notify after renderer/projection changes; targets update lazily                              |
+| setPreferences(partial) | Merge, validate, optionally persist, return copy                                             |
+| getPreferences()        | Return preference copy                                                                       |
+| stats()                 | Allocate a diagnostic snapshot; poll occasionally                                            |
+| resetGpuTimings()       | Reset isolated cloud query windows                                                           |
+| dispose()               | Idempotently remove Low, terminate worker, dispose resources/targets, restore material hooks |
 
-### Update options and view switches
+Call update before render. Pass a finite nonnegative dt in seconds; invalid/negative dt contributes zero. Passing zero freezes wind.
 
 ```js
 clouds.update(dt, {
-  view: 'ant', // 'ant' | 'world' | 'system' | null
-  sunDirection: sun, // nonzero Three.Vector3 pointing toward the sun
+  view: 'ant', // 'ant' | 'world' | 'system' | null to hide
+  sunDirection: sun, // nonzero Three.Vector3 pointing toward sun
 });
 clouds.setPreferences({ quality: 'high', world: false });
 ```
 
-Explicit view takes precedence. Invalid explicit view strings throw a RangeError; null hides clouds. Passing no view uses the legacy ant-world adapter:
+Explicit view takes precedence; invalid strings throw. Without it, the legacy adapter resolves nestActive to null, systemActive to World when systemView is 'world' and otherwise System, and mode 'ant' to Ant with all other modes resolving to World.
 
-1. nestActive → hidden.
-2. systemActive → World only when systemView is 'world'; otherwise System.
-3. mode 'ant' → Ant; all other modes → World.
+Defaults remain **{version:1, quality:'low', ant:true, world:true, system:false}**. Storage key remains **three-planet-clouds-v1**. Model/protocol version 2 is independent of preference schema version 1. Existing valid booleans are preserved.
 
-The explicit view API is recommended for new projects.
+Advanced methods: prepare(camera) updates Low without rendering; it is unnecessary before render. setDiagnosticEmptyClouds(true) preserves High's pipeline with zero density. testPuff() returns the first canonical Low puff by reference for camera/debug use; do not mutate it.
 
-Defaults: `{ version: 1, quality: 'low', ant: true, world: true, system: false }`. Visibility and quality are separate. Selecting High does not enable a hidden view. Changing camera presets does not modify visibility preferences.
+## Diagnostics
 
-The standalone storage key is **three-planet-clouds-v1**. It intentionally does not overwrite ant-world's preference record. Valid saved booleans are preserved. Multiple independently configured systems should supply separate storage wrappers or disable persistence.
+Top-level stats include model, modelVersion, volumeMethod, requestedQuality, effectiveQuality, resolvedView, visible, resourceReadiness, resourceError, targetDimensions, cloudPuffs, cloudBanks, cloudBounds, low, and high.
 
-### Diagnostics
+High stats include densityModel, detailDistance, resourceBytes, primarySamples, shadowSamples, renderTargets, timing scope, and output compatibility notes. Resource bytes now reflect the actual received arrays rather than a hardcoded dimension formula.
 
-Useful top-level fields include requestedQuality, effectiveQuality, resolvedView, visible, resourceReadiness, resourceError, cloudDrawCalls, targetDimensions, cloudPuffs, cloudBounds, low, and high.
+Resource states: idle, loading, ready, unavailable, failed. Ready describes CPU data, not successful High rendering. V2 systems reject v1-format worker responses with an explicit update-worker error and retain Low. A requested High mode may be effective Low while loading, after a capability failure, or when the High pass skips.
 
-Resource states are idle, loading, ready, unavailable, or failed. Ready describes CPU resource availability, not necessarily successful High rendering. A requested High mode can report effective Low during loading, unsupported rendering, or off-frustum/direct-render fallback.
+The High cloud draw count excludes scene capture draws. Missing GPU timing is null/unavailable. Live allocation counts are not byte measurements.
 
-The High draw count excludes normal scene draws. Timing fields explicitly distinguish isolated cloud passes and whole-frame work. A missing GPU timer is reported as unavailable/null, not zero. Allocation counts are live renderer counters, not bytes.
+## High configuration
 
-## Low-level modules
+| Parameter              | Weather/direct High default | Clamped range |
+| ---------------------- | --------------------------- | ------------- |
+| wavelength             | 18                          | 0.1–100       |
+| erosion                | 0.22                        | 0–0.9         |
+| detailDistance         | 160                         | 1–10000       |
+| extinction             | 0.8                         | 0.01–8        |
+| phaseG                 | 0.4                         | −0.85–0.85    |
+| ambient                | 0.62                        | 0–5           |
+| sunlight               | 2.7                         | 0–20          |
+| shadowDistance         | 12                          | 0.1–100       |
+| depthTolerance         | 0.24                        | 0.001–10      |
+| depthRelativeTolerance | 0.006                       | 0–0.1         |
 
-| Import path                     | Exports and purpose                                                                                                                                      |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| three-planet-clouds/layout      | createCloudField, generateCloudLayout; pure seeded geometry/layout                                                                                       |
-| three-planet-clouds/low         | createLowCloudRenderer                                                                                                                                   |
-| three-planet-clouds/high        | createHighCloudRenderer, HIGH_CLOUD_CONFIG, cloudTargetSize, intersectCloudShellRay, shader strings, shader-patch helpers                                |
-| three-planet-clouds/volume-data | bakeEnvelope, createEnvelopeSampler, compileCloudPuffs, cubeDirection, createPeriodicNoiseSampler, bakeDensityNoise, fixedBlueNoise, size/seed constants |
-| three-planet-clouds/preferences | preference constants, validation, read/write, resolveCloudView                                                                                           |
-| three-planet-clouds/measurement | createCloudMeasurement                                                                                                                                   |
-| three-planet-clouds/worker      | Module worker entry; includes bakeCloudResources and resourceTransferList for worker/test use                                                            |
+Legacy coordinator mode overrides wavelength to 4.5 and erosion to 0.25, before user config overrides. A direct High factory uses the table defaults even when supplied legacy resources; supply legacy settings explicitly when comparing.
 
-`createCloudField({ seed, terrainRadius })` returns puffs, bounds, layout, cloudRadius, minCloudClearance. A puff contains center[3], basis[3][3], radii[3], density, bankId. Treat the field as immutable.
+ambientColor defaults to linear RGB [0.76,0.84,0.88]; sunColor to [1,0.98,0.91]. These arrays are not validated by numeric clamping. Configuration does not change the 48/2 samples or cloud pixel cap.
 
-`createLowCloudRenderer({ scene, field, renderer })` returns group, mesh, update, stats, resetGpuTimings, dispose. Its update takes camera, windMatrix, sunDirection, visible. It attaches its group to scene but does not render the scene itself.
-
-`createHighCloudRenderer({ renderer, bounds, planetRadius, config })` returns setResources, render, resize, stats, resetGpuTimings, setDiagnosticEmptyClouds, dispose. Its render takes scene, camera, windInverse, sunDirection, planetCenter, and optional artisticHaze; it returns true only when it produced the frame. A caller using it directly must supply a fallback.
-
-### High configuration
-
-Coordinator CLOUD_CONFIG fixes wavelength 4.5, erosion 0.25, extinction 0.8, phaseG 0.4. It does not currently expose an arbitrary config parameter. For tuning, use the direct High factory or an injected factory that merges configuration.
-
-| Parameter              | Direct High default | Clamped range |
-| ---------------------- | ------------------- | ------------- |
-| wavelength             | 3.6                 | 0.1–100       |
-| erosion                | 0.25                | 0–0.9         |
-| extinction             | 0.8                 | 0.01–8        |
-| phaseG                 | 0.4                 | −0.85–0.85    |
-| ambient                | 0.62                | 0–5           |
-| sunlight               | 2.7                 | 0–20          |
-| shadowDistance         | 12                  | 0.1–100       |
-| depthTolerance         | 0.24                | 0.001–10      |
-| depthRelativeTolerance | 0.006               | 0–0.1         |
-
-ambientColor defaults to [0.76,0.84,0.88]; sunColor to [1,0.98,0.91]. Colors are linear RGB arrays and are not validated by the numeric clamping helper. No quality option changes the fixed 48/2 samples or 262,144-pixel budget.
-
-### Worker protocol
-
-Request:
+## Pure weather and layout API
 
 ```js
-{ type: 'bake', requestId, puffs, bounds: { inner, outer }, seed }
+import {
+  createWeatherField,
+  createWeatherSampler,
+  weatherDensity,
+} from 'three-planet-clouds/weather';
+const weather = createWeatherField({ seed: 39, terrainRadius: 43 });
+const sample = createWeatherSampler(weather);
+const [coverage, baseRadius, topRadius, development] = sample([0, 1, 0]);
 ```
 
-Success:
+The descriptor contains version 2, normalized seed, terrainRadius, bounds, and regions. It is serializable and should be treated as immutable. createWeatherSampler validates it and accepts arbitrary nonzero directions, normalizing before sampling. Supplying an output array avoids per-sample output allocation. It is intended for generation, baking, and diagnostics, not per-frame full-sphere sampling.
+
+weatherDensity(coverage,h,type,shape,detail=1,erosion=0.22) is a CPU reference. h is height fraction; shape/detail are noise values in [0,1]. Use erosion × distanceFade to model faded erosion. It performs no texture lookup.
+
+createCloudField({seed,terrainRadius,model='weather'}) returns model, modelVersion, seed, puffs, layout, bounds, cloudRadius, minCloudClearance, and weather when applicable. Bounds conservatively include Low geometry and the weather shell. A weather puff adds baseRadius to center, basis, radii, density, bankId. layout.instances also records level/parent links.
+
+generateCloudLayout accepts seed, cloudRadius, and model. generateLegacyCloudLayout remains available from the layout subpath. Numerical seeds intentionally produce different layouts across models.
+
+## Low-level exports
+
+| Import path                     | Purpose                                                                                      |
+| ------------------------------- | -------------------------------------------------------------------------------------------- |
+| three-planet-clouds             | Coordinator, field generation, low/high factories, weather helpers, preferences, measurement |
+| three-planet-clouds/layout      | Layout/field generators, including explicit legacy generator                                 |
+| three-planet-clouds/weather     | Descriptor/sampler, validation, density reference, version/size constants                    |
+| three-planet-clouds/low         | createLowCloudRenderer                                                                       |
+| three-planet-clouds/high        | createHighCloudRenderer, config, size/intersection helpers, shader strings and patch helpers |
+| three-planet-clouds/volume-data | Weather/envelope bakers, noise utilities, cubemap directions, blue noise                     |
+| three-planet-clouds/preferences | Validation, read/write, view resolver and constants                                          |
+| three-planet-clouds/measurement | createCloudMeasurement                                                                       |
+| three-planet-clouds/worker      | Worker entry plus bake/transfer functions for worker and test use                            |
+
+Low factory accepts scene, field, renderer and returns group, mesh, update, stats, resetGpuTimings, dispose. update takes camera, windMatrix, sunDirection, visible.
+
+High factory accepts renderer, bounds, planetRadius, config and returns setResources, render, resize, stats, resetGpuTimings, setDiagnosticEmptyClouds, dispose. render takes scene, camera, windInverse, sunDirection, planetCenter, artisticHaze and returns true only when it produces the frame. Direct users must supply fallback.
+
+setResources rejects invalid dimensions, arrays, bounds, or incomplete v2 data before replacing resources. Accepted resources allocate textures, not render targets or a frame. Legacy data is still supported by direct High.
+
+## Worker protocol
+
+V2 request:
 
 ```js
 {
-  type: 'ready', requestId,
-  envelope: { size: 128, faces: [/* six Uint8Arrays */] },
-  noise: { size: 64, data: /* Uint8Array */ },
-  blueNoise: { size: 32, data: /* Uint8Array */ },
-  bounds: { inner, outer },
-  timings: { envelopeMs, noiseMs, totalMs }
+  type: 'bake', requestId, version: 2,
+  weather, // descriptor from createWeatherField
+  bounds: weather.bounds, // must match exactly
+  seed
 }
 ```
 
-Error: `{ type: 'error', requestId, error: string }`.
+Coordinator requests also carry puffs for diagnostics/compatibility; the weather baker does not use them. Descriptor version is validated. The response carries explicit model/protocol version:
 
-The eight pixel buffers are transferred, not copied in the response. Request puffs are structured-cloned. The coordinator rejects stale responses and terminates the worker on completion/error. Existing work is not canceled merely because the view becomes hidden. Dispose terminates it. There is no automatic retry; recreate the system to retry a failed bake/context after fixing the cause.
+```js
+{
+  type: 'ready', requestId, version: 2, model: 'weather',
+  weather: { size: 128, faces: [/* six RGBA8 Uint8Arrays */] },
+  noise: { size: 64, data: /* R8 Uint8Array */ },
+  detail: { size: 32, data: /* R8 Uint8Array */ },
+  blueNoise: { size: 32, data: /* R8 Uint8Array */ },
+  bounds,
+  timings: { weatherMs, noiseMs, detailMs, totalMs }
+}
+```
 
-Do not import the worker entry in a window: it installs a message handler. Pure CPU functions are available from volume-data. Keep expensive baking out of the UI thread.
+Nine pixel buffers are transferred. Error response remains {type:'error',requestId,error}. Stale ids are ignored; completion/error/disposal terminate the worker. Hiding does not cancel an existing bake. Failed resource generation is not automatically retried; recreate after resolving the cause.
 
-## Measurement helper
+Legacy requests omit weather and use puffs/bounds/seed, producing envelope/noise/blueNoise and eight buffers. Its envelope remains premultiplied; v2 weather channels are not.
+
+The worker entry installs its handler only outside a document context. Use volume-data for pure functions and keep expensive baking off the UI thread.
+
+## Measurement
 
 ```js
 const measurement = createCloudMeasurement(renderer, () => clouds.resetGpuTimings());
 measurement.start(); // optional user-triggered capture
-
-// Each animation frame:
+// Every animation frame:
 measurement.begin();
-// update the application's simulation and camera here
+// simulation/camera update
 measurement.beginGpu();
 clouds.render(scene, camera);
 measurement.endGpu();
 measurement.end(() => clouds.stats());
-
-// Poll occasionally:
+// Poll:
 const { active, phase, report } = measurement.stats();
-const allocations = measurement.snapshot(() => clouds.stats());
-// On teardown:
+const snapshot = measurement.snapshot(() => clouds.stats());
+// Teardown:
 measurement.dispose();
 ```
 
-There are two phases of 240 recorded frames plus query draining. The first samples isolated cloud work; the second wraps the entire render in a GPU query. Nested timer queries are avoided. CPU submission and animation-frame interval measurements have separate labels. See [Performance](PERFORMANCE.md) before interpreting their differences.
+Two phases collect isolated cloud queries and whole-frame queries separately, avoiding nested timers. CPU submission, animation-frame interval, and GPU execution are distinct metrics. See [Performance](PERFORMANCE.md) for the measurement protocol.

@@ -22,6 +22,13 @@
       <p class="intro">One weather field. Two ways to render it.</p>
       <div class="controls">
         <label
+          >Cloud model
+          <select id="model">
+            <option value="weather">Weather · new model</option>
+            <option value="legacy">Legacy · 0.1 comparison</option>
+          </select></label
+        >
+        <label
           >Cloud quality
           <select id="quality">
             <option value="low">Low · shaded shapes</option>
@@ -43,6 +50,15 @@
           ><label><input id="system" type="checkbox" /> System</label>
         </fieldset>
         <label
+          >Inspection pose
+          <select id="pose">
+            <option value="cloudy">Cloudy region</option>
+            <option value="clear">Clear region</option>
+            <option value="horizon">Horizon</option>
+            <option value="height">Cloud height</option>
+          </select></label
+        >
+        <label
           >Weather seed <input id="seed" type="number" min="0" max="4294967295" step="1" value="39"
         /></label>
         <button id="regenerate">Generate weather</button>
@@ -62,10 +78,13 @@
           features are unavailable.
         </p>
         <p>
-          This is a procedural demonstration planet. Cloud rendering is extracted from ant-world.
+          Weather combines hierarchical Low shapes with continuous High density. Legacy selects the
+          original ant-world model for comparison. The two qualities share weather patterns; their
+          detailed silhouettes differ.
         </p>
         <p>
           <a href="/README.md">Readme</a> · <a href="/docs/TECHNIQUE.md">Math & technique</a> ·
+          <a href="/docs/ANT-WORLD-MIGRATION.md">Ant-world migration</a> ·
           <a href="/CREDITS.md">Credits</a>
         </p>
       </details>

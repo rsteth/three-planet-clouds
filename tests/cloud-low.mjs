@@ -2,7 +2,14 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import * as THREE from 'three';
-import { generateCloudLayout, createCloudField } from '../src/cloud-layout.js';
+import {
+  generateCloudLayout as generate,
+  createCloudField as create,
+} from '../src/cloud-layout.js';
+// Preserve v0.1's deterministic fixtures as explicit legacy coverage. The
+// default v0.2 model has separate morphology, weather, and Low integration tests.
+const generateCloudLayout = (options) => generate({ ...options, model: 'legacy' });
+const createCloudField = (options) => create({ ...options, model: 'legacy' });
 import { createLowCloudRenderer } from '../src/cloud-low.js';
 
 // Hash quantized values, not implementation-dependent transcendental last bits.

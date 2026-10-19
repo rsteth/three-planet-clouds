@@ -2,6 +2,8 @@
 
 ## Supported baseline
 
+Version 0.2 defaults to model: 'weather', combining a shared weather descriptor, hierarchical Low proxies, and continuous High density. model: 'legacy' selects the prior representation. Their numerical seed layouts differ. See [Enhancements](ENHANCEMENTS.md) and [Ant-world migration](ANT-WORLD-MIGRATION.md) before updating the game.
+
 Use **Three.js 0.169.0**, WebGLRenderer, an ordinary perspective or orthographic camera, linear-sRGB working space, and conventional WebGL depth. The reference coordinator renders one planet centered at (0,0,0).
 
 Low needs the instancing and shader functionality already provided by this Three.js/WebGL2 baseline. It does not need half-float render targets or worker textures. This release does not claim WebGL1 support.
@@ -34,7 +36,7 @@ Preserve this URL relationship, or configure the bundler to emit the worker and 
 
 Serve modules with a JavaScript MIME type over HTTP(S). file:// is not a supported demo route. Cross-origin isolation/SharedArrayBuffer is not required. CSP must allow the application scripts and the same-origin module worker; there is no runtime CDN fetch.
 
-The package includes all src modules, including the worker and its relative dependency. The demo and tests live in the Git repository; they are intentionally not part of the runtime tarball.
+The package includes all src modules, including the worker and its volume-data/weather dependencies. A vendored deployment must also include cloud-hierarchy.js for Low. Deploy the coordinator and worker as one version: v2 expects weather plus independent detail; an old worker response deliberately triggers Low fallback. The demo and tests live in the Git repository; they are intentionally not part of the runtime tarball.
 
 ## Cameras, surfaces, and scale
 

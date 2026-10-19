@@ -1,16 +1,25 @@
 {
   "name": "three-planet-clouds",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Two quality levels of seeded planetary clouds for Three.js: instanced ellipsoids and single-shell volumetric raymarching.",
   "type": "module",
   "license": "MIT",
   "author": "Robin Stethem",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsteth/three-planet-clouds.git"
+  },
+  "homepage": "https://github.com/rsteth/three-planet-clouds#readme",
+  "bugs": {
+    "url": "https://github.com/rsteth/three-planet-clouds/issues"
+  },
   "engines": {
     "node": ">=22"
   },
   "exports": {
     ".": "./src/index.js",
     "./layout": "./src/cloud-layout.js",
+    "./weather": "./src/cloud-weather.js",
     "./volume-data": "./src/cloud-volume-data.js",
     "./worker": "./src/cloud-volume-worker.js",
     "./high": "./src/cloud-high.js",

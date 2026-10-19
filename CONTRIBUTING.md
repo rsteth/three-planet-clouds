@@ -4,9 +4,9 @@ Use Node.js 22 or newer. Run `npm ci`, `npm test`, and `npm run format:check`. S
 
 ## Keep the invariants explicit
 
-- Both qualities consume the same canonical field. Changes to weather generation need a deliberate deterministic-fixture update and visual comparison.
+- Both qualities consume the same seeded weather descriptor; their detailed topology differs. Changes to generation need reproducibility tests and visual comparison. Keep the v0.1 fixture checks explicitly in legacy mode.
 - Hidden views must skip cloud sorting, uploads, draw work, and starting a new bake.
-- Never synchronously generate the volume textures on the application's UI thread.
+- Never synchronously generate the volume textures on the application's UI thread. Keep the v2 worker descriptor/renderer resources in sync; test mixed-version Low fallback.
 - Keep the 48-step shared interval budget and cloud pixel cap unless the quality contract and measurements change with them.
 - Render in linear light, apply the output transform once, and restore the caller's renderer/material state.
 - Preserve module-worker files and relative imports in packages and deployments.
@@ -15,7 +15,7 @@ Use Node.js 22 or newer. Run `npm ci`, `npm test`, and `npm run format:check`. S
 
 ## Useful contributions
 
-Broader mobile/integrated-GPU measurements, reduced full-resolution target memory, transparent-material composition improvements, worker resource caching, and a reproducible blue-noise generator are useful next steps. Keep changes small enough to review and include relevant captures and device conditions.
+Broader mobile/integrated-GPU measurements of the weather model, closer Low/High coverage matching, reduced full-resolution target memory, transparent-material composition improvements, worker resource caching, and a reproducible blue-noise generator are useful next steps. Keep changes small enough to review and include relevant captures and device conditions. Maintain docs/ANT-WORLD-MIGRATION.md when changing a contract needed by the game port.
 
 Do not widen compatibility claims based solely on CPU tests. Do not infer GPU time from CPU submission duration or displayed fps.
 

@@ -1,0 +1,2757 @@
+{
+  "date": "2026-10-18",
+  "version": "0.2.0",
+  "processor": "Apple M5",
+  "machineModel": "Mac17,3",
+  "os": "macOS 26.6.2",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "drawingBuffer": [
+    1920,
+    1080
+  ],
+  "pixelRatio": 1.5,
+  "visibilityCases": [
+    {
+      "model": "weather",
+      "quality": "low",
+      "view": "ant",
+      "visible": false,
+      "draws": 0,
+      "resources": "idle",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "low",
+      "view": "ant",
+      "visible": true,
+      "draws": 1,
+      "resources": "idle",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "low",
+      "view": "world",
+      "visible": false,
+      "draws": 0,
+      "resources": "idle",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "low",
+      "view": "world",
+      "visible": true,
+      "draws": 1,
+      "resources": "idle",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "low",
+      "view": "system",
+      "visible": false,
+      "draws": 0,
+      "resources": "idle",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "low",
+      "view": "system",
+      "visible": true,
+      "draws": 1,
+      "resources": "idle",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "high",
+      "view": "ant",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "weather",
+      "quality": "high",
+      "view": "ant",
+      "visible": true,
+      "draws": 3,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "weather",
+      "quality": "high",
+      "view": "world",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "weather",
+      "quality": "high",
+      "view": "world",
+      "visible": true,
+      "draws": 3,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "weather",
+      "quality": "high",
+      "view": "system",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "weather",
+      "quality": "high",
+      "view": "system",
+      "visible": true,
+      "draws": 3,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "legacy",
+      "quality": "low",
+      "view": "ant",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "legacy",
+      "quality": "low",
+      "view": "ant",
+      "visible": true,
+      "draws": 1,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "legacy",
+      "quality": "low",
+      "view": "world",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "legacy",
+      "quality": "low",
+      "view": "world",
+      "visible": true,
+      "draws": 1,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "legacy",
+      "quality": "low",
+      "view": "system",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "legacy",
+      "quality": "low",
+      "view": "system",
+      "visible": true,
+      "draws": 1,
+      "resources": "ready",
+      "dimensions": null
+    },
+    {
+      "model": "legacy",
+      "quality": "high",
+      "view": "ant",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "legacy",
+      "quality": "high",
+      "view": "ant",
+      "visible": true,
+      "draws": 3,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "legacy",
+      "quality": "high",
+      "view": "world",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "legacy",
+      "quality": "high",
+      "view": "world",
+      "visible": true,
+      "draws": 3,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "legacy",
+      "quality": "high",
+      "view": "system",
+      "visible": false,
+      "draws": 0,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    },
+    {
+      "model": "legacy",
+      "quality": "high",
+      "view": "system",
+      "visible": true,
+      "draws": 3,
+      "resources": "ready",
+      "dimensions": {
+        "width": 682,
+        "height": 384,
+        "sceneWidth": 1920,
+        "sceneHeight": 1080
+      }
+    }
+  ],
+  "antInspectionCases": [
+    {
+      "quality": "low",
+      "view": "ant",
+      "pose": "cloudy",
+      "draws": 1,
+      "camera": {
+        "position": [
+          -40.83526101626518,
+          -12.724176650738585,
+          6.067683766833256
+        ],
+        "target": [
+          -40.84164622481702,
+          -12.726456273283768,
+          6.075034442502948
+        ]
+      }
+    },
+    {
+      "quality": "low",
+      "view": "ant",
+      "pose": "clear",
+      "draws": 1,
+      "camera": {
+        "position": [
+          13.822783195107881,
+          -40.725,
+          4.079833298192887
+        ],
+        "target": [
+          13.827052209816046,
+          -40.732296159956036,
+          4.074490867723761
+        ]
+      }
+    },
+    {
+      "quality": "low",
+      "view": "ant",
+      "pose": "horizon",
+      "draws": 1,
+      "camera": {
+        "position": [
+          -40.835261016265186,
+          -12.724176650738587,
+          6.067683766833255
+        ],
+        "target": [
+          -40.834290109112096,
+          -12.72433145811757,
+          6.077635318168373
+        ]
+      }
+    },
+    {
+      "quality": "low",
+      "view": "ant",
+      "pose": "height",
+      "draws": 1,
+      "camera": {
+        "position": [
+          -43.64938714174292,
+          -13.60105210217196,
+          6.485832861131475
+        ],
+        "target": [
+          -43.65577235029476,
+          -13.603331724717144,
+          6.493183536801166
+        ]
+      }
+    },
+    {
+      "quality": "high",
+      "view": "ant",
+      "pose": "cloudy",
+      "draws": 3,
+      "camera": {
+        "position": [
+          -40.83526101626518,
+          -12.724176650738585,
+          6.067683766833256
+        ],
+        "target": [
+          -40.84164622481702,
+          -12.726456273283768,
+          6.075034442502948
+        ]
+      }
+    },
+    {
+      "quality": "high",
+      "view": "ant",
+      "pose": "clear",
+      "draws": 3,
+      "camera": {
+        "position": [
+          13.822783195107881,
+          -40.725,
+          4.079833298192887
+        ],
+        "target": [
+          13.827052209816046,
+          -40.732296159956036,
+          4.074490867723761
+        ]
+      }
+    },
+    {
+      "quality": "high",
+      "view": "ant",
+      "pose": "horizon",
+      "draws": 3,
+      "camera": {
+        "position": [
+          -40.835261016265186,
+          -12.724176650738587,
+          6.067683766833255
+        ],
+        "target": [
+          -40.834290109112096,
+          -12.72433145811757,
+          6.077635318168373
+        ]
+      }
+    },
+    {
+      "quality": "high",
+      "view": "ant",
+      "pose": "height",
+      "draws": 3,
+      "camera": {
+        "position": [
+          -43.64938714174292,
+          -13.60105210217196,
+          6.485832861131475
+        ],
+        "target": [
+          -43.65577235029476,
+          -13.603331724717144,
+          6.493183536801166
+        ]
+      }
+    }
+  ],
+  "modelComparisonCameraDifference": 0,
+  "regenerationCycles": [
+    {
+      "seed": 101,
+      "allocations": {
+        "geometries": 3,
+        "textures": 10,
+        "programs": 7
+      },
+      "targets": 3,
+      "bytes": 689152
+    },
+    {
+      "seed": 39,
+      "allocations": {
+        "geometries": 3,
+        "textures": 10,
+        "programs": 7
+      },
+      "targets": 3,
+      "bytes": 689152
+    },
+    {
+      "seed": 101,
+      "allocations": {
+        "geometries": 3,
+        "textures": 10,
+        "programs": 7
+      },
+      "targets": 3,
+      "bytes": 689152
+    },
+    {
+      "seed": 39,
+      "allocations": {
+        "geometries": 3,
+        "textures": 10,
+        "programs": 7
+      },
+      "targets": 3,
+      "bytes": 689152
+    }
+  ],
+  "resize": {
+    "portrait": {
+      "width": 310,
+      "height": 672,
+      "sceneWidth": 621,
+      "sceneHeight": 1344
+    },
+    "restored": {
+      "width": 682,
+      "height": 384,
+      "sceneWidth": 1920,
+      "sceneHeight": 1080
+    },
+    "allocationsAfter": {
+      "geometries": 3,
+      "textures": 10,
+      "programs": 7
+    }
+  },
+  "measurements": {
+    "seed": 39,
+    "model": "weather",
+    "view": "world",
+    "pose": "cloudy",
+    "windPaused": true,
+    "cameraDifference": 0,
+    "camera": {
+      "position": [
+        -139.77730214074208,
+        -7.9370571593037775,
+        37.740017619307466
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "off": {
+      "samples": 240,
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "device": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)",
+      "drawingBuffer": [
+        1920,
+        1080
+      ],
+      "pixelRatio": 1.5,
+      "frameIntervalMs": {
+        "p50": 16.699999928474426,
+        "p95": 17.5
+      },
+      "cpuWholeFrameMs": {
+        "p50": 0.19999992847442627,
+        "p95": 0.30000007152557373
+      },
+      "gpuWholeFrameMs": {
+        "available": true,
+        "samples": 240,
+        "p50": 1.711166,
+        "p95": 5.929499
+      },
+      "clouds": {
+        "diagnosticEmptyClouds": false,
+        "model": "weather",
+        "modelVersion": 2,
+        "requestedQuality": "high",
+        "effectiveQuality": "low",
+        "resolvedView": "world",
+        "visible": false,
+        "preferences": {
+          "version": 1,
+          "quality": "high",
+          "ant": true,
+          "world": false,
+          "system": true
+        },
+        "resourceReadiness": "ready",
+        "resourceTimings": {
+          "weatherMs": 32,
+          "noiseMs": 72,
+          "detailMs": 10.600000023841858,
+          "totalMs": 114.60000002384186
+        },
+        "resourceError": null,
+        "targetDimensions": {
+          "width": 682,
+          "height": 384,
+          "sceneWidth": 1920,
+          "sceneHeight": 1080
+        },
+        "high": {
+          "supported": true,
+          "diagnosticEmptyClouds": false,
+          "ready": true,
+          "rendered": true,
+          "culled": false,
+          "failure": null,
+          "skipReason": null,
+          "dimensions": {
+            "width": 682,
+            "height": 384,
+            "sceneWidth": 1920,
+            "sceneHeight": 1080
+          },
+          "targetPixels": 261888,
+          "drawCalls": 3,
+          "sceneDrawCalls": 1,
+          "antialiasing": "display-space FXAA",
+          "primarySamples": 48,
+          "shadowSamples": 2,
+          "resourceBytes": 689152,
+          "densityModel": "weather",
+          "detailDistance": 160,
+          "gpuTimerSupported": true,
+          "gpuMs": null,
+          "gpuP95Ms": null,
+          "gpuSamples": 0,
+          "gpuTimeScope": "raymarch, reconstruction with authored fog/haze and output transform, display-space FXAA; excludes scene capture/metadata",
+          "cpuMs": 0.20000004768371582,
+          "projectedBounds": [
+            0.10023347303701091,
+            0,
+            0.8997665269629894,
+            1
+          ],
+          "renderTargets": 3,
+          "sceneMetadataBytes": 8294400,
+          "materialFlagCount": 2,
+          "colorCompositing": "linear cloud radiance; one ACES/output transform; display-space authored fog/haze weighted by cloud transmittance",
+          "transparentOutputParity": "approximate for overlapping normal-alpha/additive materials with different output flags"
+        },
+        "low": {
+          "visible": false,
+          "puffs": 145,
+          "insidePuffs": 0,
+          "faceMode": "front-face-culled",
+          "drawCalls": 0,
+          "actualDrawCalls": 0,
+          "configuredDrawCalls": 0,
+          "totalDrawCalls": 8,
+          "triangles": 0,
+          "trianglesPerPuff": 120,
+          "geometryTriangles": 17400,
+          "gpuTimerAvailable": true,
+          "gpuTimeMs": null,
+          "gpuP95Ms": null,
+          "gpuSamples": 0,
+          "gpuPendingQueries": 1,
+          "gpuDisjointEvents": 0,
+          "sortPasses": 1,
+          "sortComparisons": 8022,
+          "instanceUploads": 2,
+          "attributeUploads": 6,
+          "uploadedBytes": 22040,
+          "insideTests": 145,
+          "materialVariantChanges": 0
+        },
+        "time": 0,
+        "cloudRotation": 0,
+        "cloudPuffs": 145,
+        "cloudBanks": 24,
+        "weatherRegions": [
+          {
+            "center": [
+              -0.9362113134383873,
+              -0.21469462104141712,
+              0.2782347862612654
+            ],
+            "east": [
+              0.07890266974888854,
+              -0.8999006340904118,
+              -0.4288976771564199
+            ],
+            "north": [
+              0.3424656848451646,
+              -0.37958539020826004,
+              0.8594371333867157
+            ],
+            "length": 0.6470731247216464,
+            "width": 0.13595733240945265,
+            "curve": -0.38569654845632617,
+            "moisture": 0.9663110923208296,
+            "development": 0.5558461943641305,
+            "baseAltitude": 2.836044082837179,
+            "depth": 0.5558461943641305,
+            "start": 0,
+            "count": 8
+          },
+          {
+            "center": [
+              0.37729867340055284,
+              0.92540063848719,
+              -0.035768272780273024
+            ],
+            "east": [
+              -0.7481966042935815,
+              0.28183430504447465,
+              -0.6006423776455103
+            ],
+            "north": [
+              -0.5457541134739498,
+              0.25338327250945175,
+              0.7987173247392748
+            ],
+            "length": 0.510364939388819,
+            "width": 0.13934117854107173,
+            "curve": -0.5000776519300416,
+            "moisture": 0.9640348791331053,
+            "development": 0.30270565003156663,
+            "baseAltitude": 2.820568248850759,
+            "depth": 0.30270565003156663,
+            "start": 8,
+            "count": 5
+          },
+          {
+            "center": [
+              -0.30943564196678436,
+              0.42510621156543493,
+              -0.8506081896908162
+            ],
+            "east": [
+              0.9437236749780838,
+              0.027442451887304438,
+              -0.32959450408080704
+            ],
+            "north": [
+              -0.1167698966620428,
+              -0.9047273737004405,
+              -0.4096744689514337
+            ],
+            "length": 0.5563284059520811,
+            "width": 0.1996530378353782,
+            "curve": -0.09737733611837031,
+            "moisture": 0.9433717599324882,
+            "development": 0.668857508711517,
+            "baseAltitude": 2.957269915821962,
+            "depth": 0.668857508711517,
+            "start": 13,
+            "count": 6
+          },
+          {
+            "center": [
+              0.8537315806730705,
+              0.16828506300225854,
+              0.49277025654130785
+            ],
+            "east": [
+              0.5206922121388287,
+              -0.2844252062894395,
+              -0.8049732431858729
+            ],
+            "north": [
+              0.004691308925394516,
+              0.9438127142593149,
+              -0.33044750267331546
+            ],
+            "length": 0.5134762455476448,
+            "width": 0.24632425363175572,
+            "curve": -0.051063399179838605,
+            "moisture": 0.7273290724679827,
+            "development": 0.4814526248723269,
+            "baseAltitude": 2.8961240779259243,
+            "depth": 0.4814526248723269,
+            "start": 19,
+            "count": 5
+          }
+        ],
+        "clearDirection": [
+          0.3199718332200899,
+          -0.9427083333333333,
+          0.09444058560631688
+        ],
+        "clearAngularRadius": 1.2324621427503892,
+        "cloudDistribution": {
+          "wisp": 2,
+          "streak": 6,
+          "broken": 14,
+          "billow": 2
+        },
+        "cloudBankDefinitions": [
+          {
+            "type": "broken",
+            "start": 0,
+            "count": 6,
+            "length": 2.2243333333694726,
+            "width": 1.7746928919529608,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.945260671672805,
+              -0.2945411261745043,
+              0.1404556427507698
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6177301511983387,
+            "baseRadius": 45.800251067034175,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 6,
+            "count": 6,
+            "length": 4.498084024960292,
+            "width": 3.370370423888424,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9669796246296954,
+              -0.13473291844021817,
+              0.21632717406649385
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.5396092022769153,
+            "baseRadius": 45.80925631309709,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 12,
+            "count": 6,
+            "length": 2.393832385264663,
+            "width": 1.9910310268596099,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.8083915017442534,
+              -0.5777244592688571,
+              -0.11286110521423023
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.48753522444749253,
+            "baseRadius": 45.84173932291126,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 18,
+            "count": 6,
+            "length": 3.6044366519264126,
+            "width": 3.5094576672426108,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.887520597216708,
+              -0.44171191584080993,
+              0.1311402795495703
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6392529089702293,
+            "baseRadius": 45.80952939292907,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 24,
+            "count": 6,
+            "length": 9.483106321945089,
+            "width": 3.4887854187118488,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9611671916520307,
+              0.01064555154560223,
+              0.2757613133201224
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.433351598714944,
+            "baseRadius": 45.81577273260213,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 30,
+            "count": 6,
+            "length": 6.149649701325342,
+            "width": 1.9946267768317876,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9256185961865765,
+              -0.12549948033357713,
+              0.35704354752549955
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.45802423227578404,
+            "baseRadius": 45.804578177257575,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 36,
+            "count": 7,
+            "length": 3.1620949602581705,
+            "width": 2.91272891581241,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9201624189010035,
+              0.09763053305282827,
+              0.37916935775201416
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6724525137455203,
+            "baseRadius": 45.81632832824498,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 43,
+            "count": 6,
+            "length": 3.046206271920867,
+            "width": 3.1685892110996674,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9403336448796019,
+              -0.26330581219981564,
+              0.21550565089862067
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.49204111713916066,
+            "baseRadius": 45.78691593546149,
+            "coverage": 1
+          },
+          {
+            "type": "wisp",
+            "start": 49,
+            "count": 5,
+            "length": 4.285693769694009,
+            "width": 2.8407879670673233,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.462785029470465,
+              0.8854784733055968,
+              0.041927196548425756
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.18823269648710267,
+            "baseRadius": 45.80507953424093,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 54,
+            "count": 6,
+            "length": 9.947771597213531,
+            "width": 3.195561033888451,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.3349337631896741,
+              0.9319205032688657,
+              -0.13908109096030227
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.4174846304114908,
+            "baseRadius": 45.839103927533245,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 60,
+            "count": 6,
+            "length": 10.118618261917787,
+            "width": 3.247030177773679,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.08965011777609408,
+              0.9578041564600253,
+              -0.27308250447553706
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.3392960555967875,
+            "baseRadius": 45.847553798231225,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 66,
+            "count": 6,
+            "length": 8.061112342858845,
+            "width": 4.186189396244981,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.4827885069379291,
+              0.8690313238373146,
+              0.10816568660258928
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.3922729484504089,
+            "baseRadius": 45.80364005567662,
+            "coverage": 1
+          },
+          {
+            "type": "wisp",
+            "start": 72,
+            "count": 5,
+            "length": 2.484213200217248,
+            "width": 1.2091747560323034,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.10112189732164885,
+              0.9294603890174563,
+              -0.3547925409723111
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.21629320898791776,
+            "baseRadius": 45.84764637712628,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 77,
+            "count": 6,
+            "length": 3.7107034298425132,
+            "width": 3.3501092766936456,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.4468118008256547,
+              0.3100037709939101,
+              -0.8392001409750186
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6387195228831843,
+            "baseRadius": 45.96267269448375,
+            "coverage": 1
+          },
+          {
+            "type": "billow",
+            "start": 83,
+            "count": 7,
+            "length": 3.892792388789154,
+            "width": 2.724641407616668,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.34151515177246894,
+              0.44492430823655804,
+              -0.8278947765568084
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.7567732225521469,
+            "baseRadius": 45.96364058528871,
+            "coverage": 1
+          },
+          {
+            "type": "billow",
+            "start": 90,
+            "count": 7,
+            "length": 4.335145489585849,
+            "width": 3.7023595635034576,
+            "height": 4.15920153658837,
+            "density": 0.8845190027056529,
+            "center": [
+              0.07177467344057105,
+              0.5010633247561109,
+              -0.8624290932226553
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.7343501809751616,
+            "baseRadius": 45.92493514171311,
+            "coverage": 0.9655977837903397
+          },
+          {
+            "type": "broken",
+            "start": 97,
+            "count": 6,
+            "length": 4.962220108960546,
+            "width": 4.034768358556099,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.2747188689207334,
+              0.3132406168772212,
+              -0.9090708767732527
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6026194481761195,
+            "baseRadius": 45.988378139951564,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 103,
+            "count": 6,
+            "length": 4.294538824559173,
+            "width": 3.096532109958777,
+            "height": 4.15920153658837,
+            "density": 0.8421216509076428,
+            "center": [
+              -0.3643669411034264,
+              0.5950808099200992,
+              -0.7163208512222515
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.5452851790701971,
+            "baseRadius": 45.97712273607622,
+            "coverage": 0.8713814464614286
+          },
+          {
+            "type": "broken",
+            "start": 109,
+            "count": 6,
+            "length": 4.653497415119738,
+            "width": 3.776258204631873,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.25724527776488815,
+              0.4585236017386492,
+              -0.8506356292304491
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6611831228598022,
+            "baseRadius": 45.96941164452594,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 115,
+            "count": 6,
+            "length": 4.328769524406018,
+            "width": 4.7208855656122815,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.9385844641271084,
+              0.14184786171521974,
+              0.3145447310416256
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5327564859529957,
+            "baseRadius": 45.9092069567467,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 121,
+            "count": 6,
+            "length": 10.016747266901788,
+            "width": 4.164116259666789,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.7232217782830279,
+              0.18949454884114983,
+              0.6641099874091819
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.3837477238615975,
+            "baseRadius": 45.905953770526835,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 127,
+            "count": 6,
+            "length": 3.358117111431447,
+            "width": 3.6511297694869893,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.8367407723350769,
+              0.2668118617651894,
+              0.4782011191261394
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5527075552730821,
+            "baseRadius": 45.889915627766975,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 133,
+            "count": 6,
+            "length": 3.8138880435723173,
+            "width": 3.8825029515222917,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.8386581031789839,
+              0.11961241269463142,
+              0.5313618886423809
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5614305039402098,
+            "baseRadius": 45.89300088373302,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 139,
+            "count": 6,
+            "length": 2.782268126745997,
+            "width": 2.1416089692267835,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.7814830427738358,
+              0.14343060929868756,
+              0.6072165298912362
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5697892444790341,
+            "baseRadius": 45.90096954275022,
+            "coverage": 1
+          }
+        ],
+        "cloudDensityRange": [
+          0.7388321786554966,
+          0.8998671078588814
+        ],
+        "cloudScaleRange": [
+          0.35770144347494176,
+          10.118618261917787
+        ],
+        "cloudRadius": 48,
+        "minCloudClearance": 2.25,
+        "maxCloudRadius": 51.8,
+        "cloudBounds": {
+          "inner": 45.25,
+          "outer": 51.8
+        },
+        "cloudDrawCalls": 0,
+        "cloudOpacity": 0.8,
+        "volumeMethod": "hierarchical instanced cloud shapes",
+        "renderCalls": 1928,
+        "directCalls": 284,
+        "highCalls": 1644
+      },
+      "notice": "Two phases: 240 frames with isolated cloud GPU queries, then 240 frames with whole-frame GPU queries. Whole-frame GPU spans scene and all postprocessing; CPU submission and rAF are separate. Compare whole-frame off/Low/High at the same pose. Isolated pass timings are diagnostic and not additive to whole-frame timing: query boundaries may alter scheduling or tile resolves on deferred GPUs. Differences of separate p95 summaries are not paired-frame p95 costs. Unsupported/disjoint GPU samples are not inferred."
+    },
+    "low": {
+      "samples": 240,
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "device": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)",
+      "drawingBuffer": [
+        1920,
+        1080
+      ],
+      "pixelRatio": 1.5,
+      "frameIntervalMs": {
+        "p50": 16.699999928474426,
+        "p95": 17.300000071525574
+      },
+      "cpuWholeFrameMs": {
+        "p50": 0.20000004768371582,
+        "p95": 0.3999999761581421
+      },
+      "gpuWholeFrameMs": {
+        "available": true,
+        "samples": 240,
+        "p50": 1.8065,
+        "p95": 5.809541
+      },
+      "clouds": {
+        "diagnosticEmptyClouds": false,
+        "model": "weather",
+        "modelVersion": 2,
+        "requestedQuality": "low",
+        "effectiveQuality": "low",
+        "resolvedView": "world",
+        "visible": true,
+        "preferences": {
+          "version": 1,
+          "quality": "low",
+          "ant": true,
+          "world": true,
+          "system": true
+        },
+        "resourceReadiness": "ready",
+        "resourceTimings": {
+          "weatherMs": 32,
+          "noiseMs": 72,
+          "detailMs": 10.600000023841858,
+          "totalMs": 114.60000002384186
+        },
+        "resourceError": null,
+        "targetDimensions": {
+          "width": 682,
+          "height": 384,
+          "sceneWidth": 1920,
+          "sceneHeight": 1080
+        },
+        "high": {
+          "supported": true,
+          "diagnosticEmptyClouds": false,
+          "ready": true,
+          "rendered": true,
+          "culled": false,
+          "failure": null,
+          "skipReason": null,
+          "dimensions": {
+            "width": 682,
+            "height": 384,
+            "sceneWidth": 1920,
+            "sceneHeight": 1080
+          },
+          "targetPixels": 261888,
+          "drawCalls": 3,
+          "sceneDrawCalls": 1,
+          "antialiasing": "display-space FXAA",
+          "primarySamples": 48,
+          "shadowSamples": 2,
+          "resourceBytes": 689152,
+          "densityModel": "weather",
+          "detailDistance": 160,
+          "gpuTimerSupported": true,
+          "gpuMs": null,
+          "gpuP95Ms": null,
+          "gpuSamples": 0,
+          "gpuTimeScope": "raymarch, reconstruction with authored fog/haze and output transform, display-space FXAA; excludes scene capture/metadata",
+          "cpuMs": 0.20000004768371582,
+          "projectedBounds": [
+            0.10023347303701091,
+            0,
+            0.8997665269629894,
+            1
+          ],
+          "renderTargets": 3,
+          "sceneMetadataBytes": 8294400,
+          "materialFlagCount": 2,
+          "colorCompositing": "linear cloud radiance; one ACES/output transform; display-space authored fog/haze weighted by cloud transmittance",
+          "transparentOutputParity": "approximate for overlapping normal-alpha/additive materials with different output flags"
+        },
+        "low": {
+          "visible": true,
+          "puffs": 145,
+          "insidePuffs": 0,
+          "faceMode": "front-face-culled",
+          "drawCalls": 1,
+          "actualDrawCalls": 1,
+          "configuredDrawCalls": 1,
+          "totalDrawCalls": 265,
+          "triangles": 17400,
+          "trianglesPerPuff": 120,
+          "geometryTriangles": 17400,
+          "gpuTimerAvailable": true,
+          "gpuTimeMs": 0.752874,
+          "gpuP95Ms": 6.224874,
+          "gpuSamples": 239,
+          "gpuPendingQueries": 1,
+          "gpuDisjointEvents": 0,
+          "sortPasses": 1,
+          "sortComparisons": 8022,
+          "instanceUploads": 2,
+          "attributeUploads": 6,
+          "uploadedBytes": 22040,
+          "insideTests": 145,
+          "materialVariantChanges": 0
+        },
+        "time": 0,
+        "cloudRotation": 0,
+        "cloudPuffs": 145,
+        "cloudBanks": 24,
+        "weatherRegions": [
+          {
+            "center": [
+              -0.9362113134383873,
+              -0.21469462104141712,
+              0.2782347862612654
+            ],
+            "east": [
+              0.07890266974888854,
+              -0.8999006340904118,
+              -0.4288976771564199
+            ],
+            "north": [
+              0.3424656848451646,
+              -0.37958539020826004,
+              0.8594371333867157
+            ],
+            "length": 0.6470731247216464,
+            "width": 0.13595733240945265,
+            "curve": -0.38569654845632617,
+            "moisture": 0.9663110923208296,
+            "development": 0.5558461943641305,
+            "baseAltitude": 2.836044082837179,
+            "depth": 0.5558461943641305,
+            "start": 0,
+            "count": 8
+          },
+          {
+            "center": [
+              0.37729867340055284,
+              0.92540063848719,
+              -0.035768272780273024
+            ],
+            "east": [
+              -0.7481966042935815,
+              0.28183430504447465,
+              -0.6006423776455103
+            ],
+            "north": [
+              -0.5457541134739498,
+              0.25338327250945175,
+              0.7987173247392748
+            ],
+            "length": 0.510364939388819,
+            "width": 0.13934117854107173,
+            "curve": -0.5000776519300416,
+            "moisture": 0.9640348791331053,
+            "development": 0.30270565003156663,
+            "baseAltitude": 2.820568248850759,
+            "depth": 0.30270565003156663,
+            "start": 8,
+            "count": 5
+          },
+          {
+            "center": [
+              -0.30943564196678436,
+              0.42510621156543493,
+              -0.8506081896908162
+            ],
+            "east": [
+              0.9437236749780838,
+              0.027442451887304438,
+              -0.32959450408080704
+            ],
+            "north": [
+              -0.1167698966620428,
+              -0.9047273737004405,
+              -0.4096744689514337
+            ],
+            "length": 0.5563284059520811,
+            "width": 0.1996530378353782,
+            "curve": -0.09737733611837031,
+            "moisture": 0.9433717599324882,
+            "development": 0.668857508711517,
+            "baseAltitude": 2.957269915821962,
+            "depth": 0.668857508711517,
+            "start": 13,
+            "count": 6
+          },
+          {
+            "center": [
+              0.8537315806730705,
+              0.16828506300225854,
+              0.49277025654130785
+            ],
+            "east": [
+              0.5206922121388287,
+              -0.2844252062894395,
+              -0.8049732431858729
+            ],
+            "north": [
+              0.004691308925394516,
+              0.9438127142593149,
+              -0.33044750267331546
+            ],
+            "length": 0.5134762455476448,
+            "width": 0.24632425363175572,
+            "curve": -0.051063399179838605,
+            "moisture": 0.7273290724679827,
+            "development": 0.4814526248723269,
+            "baseAltitude": 2.8961240779259243,
+            "depth": 0.4814526248723269,
+            "start": 19,
+            "count": 5
+          }
+        ],
+        "clearDirection": [
+          0.3199718332200899,
+          -0.9427083333333333,
+          0.09444058560631688
+        ],
+        "clearAngularRadius": 1.2324621427503892,
+        "cloudDistribution": {
+          "wisp": 2,
+          "streak": 6,
+          "broken": 14,
+          "billow": 2
+        },
+        "cloudBankDefinitions": [
+          {
+            "type": "broken",
+            "start": 0,
+            "count": 6,
+            "length": 2.2243333333694726,
+            "width": 1.7746928919529608,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.945260671672805,
+              -0.2945411261745043,
+              0.1404556427507698
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6177301511983387,
+            "baseRadius": 45.800251067034175,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 6,
+            "count": 6,
+            "length": 4.498084024960292,
+            "width": 3.370370423888424,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9669796246296954,
+              -0.13473291844021817,
+              0.21632717406649385
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.5396092022769153,
+            "baseRadius": 45.80925631309709,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 12,
+            "count": 6,
+            "length": 2.393832385264663,
+            "width": 1.9910310268596099,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.8083915017442534,
+              -0.5777244592688571,
+              -0.11286110521423023
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.48753522444749253,
+            "baseRadius": 45.84173932291126,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 18,
+            "count": 6,
+            "length": 3.6044366519264126,
+            "width": 3.5094576672426108,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.887520597216708,
+              -0.44171191584080993,
+              0.1311402795495703
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6392529089702293,
+            "baseRadius": 45.80952939292907,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 24,
+            "count": 6,
+            "length": 9.483106321945089,
+            "width": 3.4887854187118488,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9611671916520307,
+              0.01064555154560223,
+              0.2757613133201224
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.433351598714944,
+            "baseRadius": 45.81577273260213,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 30,
+            "count": 6,
+            "length": 6.149649701325342,
+            "width": 1.9946267768317876,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9256185961865765,
+              -0.12549948033357713,
+              0.35704354752549955
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.45802423227578404,
+            "baseRadius": 45.804578177257575,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 36,
+            "count": 7,
+            "length": 3.1620949602581705,
+            "width": 2.91272891581241,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9201624189010035,
+              0.09763053305282827,
+              0.37916935775201416
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6724525137455203,
+            "baseRadius": 45.81632832824498,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 43,
+            "count": 6,
+            "length": 3.046206271920867,
+            "width": 3.1685892110996674,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9403336448796019,
+              -0.26330581219981564,
+              0.21550565089862067
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.49204111713916066,
+            "baseRadius": 45.78691593546149,
+            "coverage": 1
+          },
+          {
+            "type": "wisp",
+            "start": 49,
+            "count": 5,
+            "length": 4.285693769694009,
+            "width": 2.8407879670673233,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.462785029470465,
+              0.8854784733055968,
+              0.041927196548425756
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.18823269648710267,
+            "baseRadius": 45.80507953424093,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 54,
+            "count": 6,
+            "length": 9.947771597213531,
+            "width": 3.195561033888451,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.3349337631896741,
+              0.9319205032688657,
+              -0.13908109096030227
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.4174846304114908,
+            "baseRadius": 45.839103927533245,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 60,
+            "count": 6,
+            "length": 10.118618261917787,
+            "width": 3.247030177773679,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.08965011777609408,
+              0.9578041564600253,
+              -0.27308250447553706
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.3392960555967875,
+            "baseRadius": 45.847553798231225,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 66,
+            "count": 6,
+            "length": 8.061112342858845,
+            "width": 4.186189396244981,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.4827885069379291,
+              0.8690313238373146,
+              0.10816568660258928
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.3922729484504089,
+            "baseRadius": 45.80364005567662,
+            "coverage": 1
+          },
+          {
+            "type": "wisp",
+            "start": 72,
+            "count": 5,
+            "length": 2.484213200217248,
+            "width": 1.2091747560323034,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.10112189732164885,
+              0.9294603890174563,
+              -0.3547925409723111
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.21629320898791776,
+            "baseRadius": 45.84764637712628,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 77,
+            "count": 6,
+            "length": 3.7107034298425132,
+            "width": 3.3501092766936456,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.4468118008256547,
+              0.3100037709939101,
+              -0.8392001409750186
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6387195228831843,
+            "baseRadius": 45.96267269448375,
+            "coverage": 1
+          },
+          {
+            "type": "billow",
+            "start": 83,
+            "count": 7,
+            "length": 3.892792388789154,
+            "width": 2.724641407616668,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.34151515177246894,
+              0.44492430823655804,
+              -0.8278947765568084
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.7567732225521469,
+            "baseRadius": 45.96364058528871,
+            "coverage": 1
+          },
+          {
+            "type": "billow",
+            "start": 90,
+            "count": 7,
+            "length": 4.335145489585849,
+            "width": 3.7023595635034576,
+            "height": 4.15920153658837,
+            "density": 0.8845190027056529,
+            "center": [
+              0.07177467344057105,
+              0.5010633247561109,
+              -0.8624290932226553
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.7343501809751616,
+            "baseRadius": 45.92493514171311,
+            "coverage": 0.9655977837903397
+          },
+          {
+            "type": "broken",
+            "start": 97,
+            "count": 6,
+            "length": 4.962220108960546,
+            "width": 4.034768358556099,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.2747188689207334,
+              0.3132406168772212,
+              -0.9090708767732527
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6026194481761195,
+            "baseRadius": 45.988378139951564,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 103,
+            "count": 6,
+            "length": 4.294538824559173,
+            "width": 3.096532109958777,
+            "height": 4.15920153658837,
+            "density": 0.8421216509076428,
+            "center": [
+              -0.3643669411034264,
+              0.5950808099200992,
+              -0.7163208512222515
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.5452851790701971,
+            "baseRadius": 45.97712273607622,
+            "coverage": 0.8713814464614286
+          },
+          {
+            "type": "broken",
+            "start": 109,
+            "count": 6,
+            "length": 4.653497415119738,
+            "width": 3.776258204631873,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.25724527776488815,
+              0.4585236017386492,
+              -0.8506356292304491
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6611831228598022,
+            "baseRadius": 45.96941164452594,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 115,
+            "count": 6,
+            "length": 4.328769524406018,
+            "width": 4.7208855656122815,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.9385844641271084,
+              0.14184786171521974,
+              0.3145447310416256
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5327564859529957,
+            "baseRadius": 45.9092069567467,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 121,
+            "count": 6,
+            "length": 10.016747266901788,
+            "width": 4.164116259666789,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.7232217782830279,
+              0.18949454884114983,
+              0.6641099874091819
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.3837477238615975,
+            "baseRadius": 45.905953770526835,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 127,
+            "count": 6,
+            "length": 3.358117111431447,
+            "width": 3.6511297694869893,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.8367407723350769,
+              0.2668118617651894,
+              0.4782011191261394
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5527075552730821,
+            "baseRadius": 45.889915627766975,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 133,
+            "count": 6,
+            "length": 3.8138880435723173,
+            "width": 3.8825029515222917,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.8386581031789839,
+              0.11961241269463142,
+              0.5313618886423809
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5614305039402098,
+            "baseRadius": 45.89300088373302,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 139,
+            "count": 6,
+            "length": 2.782268126745997,
+            "width": 2.1416089692267835,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.7814830427738358,
+              0.14343060929868756,
+              0.6072165298912362
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5697892444790341,
+            "baseRadius": 45.90096954275022,
+            "coverage": 1
+          }
+        ],
+        "cloudDensityRange": [
+          0.7388321786554966,
+          0.8998671078588814
+        ],
+        "cloudScaleRange": [
+          0.35770144347494176,
+          10.118618261917787
+        ],
+        "cloudRadius": 48,
+        "minCloudClearance": 2.25,
+        "maxCloudRadius": 51.8,
+        "cloudBounds": {
+          "inner": 45.25,
+          "outer": 51.8
+        },
+        "cloudDrawCalls": 1,
+        "cloudOpacity": 0.8,
+        "volumeMethod": "hierarchical instanced cloud shapes",
+        "renderCalls": 4118,
+        "directCalls": 2474,
+        "highCalls": 1644
+      },
+      "notice": "Two phases: 240 frames with isolated cloud GPU queries, then 240 frames with whole-frame GPU queries. Whole-frame GPU spans scene and all postprocessing; CPU submission and rAF are separate. Compare whole-frame off/Low/High at the same pose. Isolated pass timings are diagnostic and not additive to whole-frame timing: query boundaries may alter scheduling or tile resolves on deferred GPUs. Differences of separate p95 summaries are not paired-frame p95 costs. Unsupported/disjoint GPU samples are not inferred."
+    },
+    "high": {
+      "samples": 240,
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "device": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5, Unspecified Version)",
+      "drawingBuffer": [
+        1920,
+        1080
+      ],
+      "pixelRatio": 1.5,
+      "frameIntervalMs": {
+        "p50": 16.699999928474426,
+        "p95": 17.699999928474426
+      },
+      "cpuWholeFrameMs": {
+        "p50": 0.30000007152557373,
+        "p95": 0.5999999046325684
+      },
+      "gpuWholeFrameMs": {
+        "available": true,
+        "samples": 240,
+        "p50": 7.005708,
+        "p95": 9.901958
+      },
+      "clouds": {
+        "diagnosticEmptyClouds": false,
+        "model": "weather",
+        "modelVersion": 2,
+        "requestedQuality": "high",
+        "effectiveQuality": "high",
+        "resolvedView": "world",
+        "visible": true,
+        "preferences": {
+          "version": 1,
+          "quality": "high",
+          "ant": true,
+          "world": true,
+          "system": true
+        },
+        "resourceReadiness": "ready",
+        "resourceTimings": {
+          "weatherMs": 32,
+          "noiseMs": 72,
+          "detailMs": 10.600000023841858,
+          "totalMs": 114.60000002384186
+        },
+        "resourceError": null,
+        "targetDimensions": {
+          "width": 682,
+          "height": 384,
+          "sceneWidth": 1920,
+          "sceneHeight": 1080
+        },
+        "high": {
+          "supported": true,
+          "diagnosticEmptyClouds": false,
+          "ready": true,
+          "rendered": true,
+          "culled": false,
+          "failure": null,
+          "skipReason": null,
+          "dimensions": {
+            "width": 682,
+            "height": 384,
+            "sceneWidth": 1920,
+            "sceneHeight": 1080
+          },
+          "targetPixels": 261888,
+          "drawCalls": 3,
+          "sceneDrawCalls": 1,
+          "antialiasing": "display-space FXAA",
+          "primarySamples": 48,
+          "shadowSamples": 2,
+          "resourceBytes": 689152,
+          "densityModel": "weather",
+          "detailDistance": 160,
+          "gpuTimerSupported": true,
+          "gpuMs": 3.97025,
+          "gpuP95Ms": 9.897124,
+          "gpuSamples": 120,
+          "gpuTimeScope": "raymarch, reconstruction with authored fog/haze and output transform, display-space FXAA; excludes scene capture/metadata",
+          "cpuMs": 0.30000007152557373,
+          "projectedBounds": [
+            0.10023347303701091,
+            0,
+            0.8997665269629894,
+            1
+          ],
+          "renderTargets": 3,
+          "sceneMetadataBytes": 8294400,
+          "materialFlagCount": 2,
+          "colorCompositing": "linear cloud radiance; one ACES/output transform; display-space authored fog/haze weighted by cloud transmittance",
+          "transparentOutputParity": "approximate for overlapping normal-alpha/additive materials with different output flags"
+        },
+        "low": {
+          "visible": false,
+          "puffs": 145,
+          "insidePuffs": 0,
+          "faceMode": "front-face-culled",
+          "drawCalls": 0,
+          "actualDrawCalls": 0,
+          "configuredDrawCalls": 0,
+          "totalDrawCalls": 8,
+          "triangles": 0,
+          "trianglesPerPuff": 120,
+          "geometryTriangles": 17400,
+          "gpuTimerAvailable": true,
+          "gpuTimeMs": null,
+          "gpuP95Ms": null,
+          "gpuSamples": 0,
+          "gpuPendingQueries": 1,
+          "gpuDisjointEvents": 0,
+          "sortPasses": 1,
+          "sortComparisons": 8022,
+          "instanceUploads": 2,
+          "attributeUploads": 6,
+          "uploadedBytes": 22040,
+          "insideTests": 145,
+          "materialVariantChanges": 0
+        },
+        "time": 0,
+        "cloudRotation": 0,
+        "cloudPuffs": 145,
+        "cloudBanks": 24,
+        "weatherRegions": [
+          {
+            "center": [
+              -0.9362113134383873,
+              -0.21469462104141712,
+              0.2782347862612654
+            ],
+            "east": [
+              0.07890266974888854,
+              -0.8999006340904118,
+              -0.4288976771564199
+            ],
+            "north": [
+              0.3424656848451646,
+              -0.37958539020826004,
+              0.8594371333867157
+            ],
+            "length": 0.6470731247216464,
+            "width": 0.13595733240945265,
+            "curve": -0.38569654845632617,
+            "moisture": 0.9663110923208296,
+            "development": 0.5558461943641305,
+            "baseAltitude": 2.836044082837179,
+            "depth": 0.5558461943641305,
+            "start": 0,
+            "count": 8
+          },
+          {
+            "center": [
+              0.37729867340055284,
+              0.92540063848719,
+              -0.035768272780273024
+            ],
+            "east": [
+              -0.7481966042935815,
+              0.28183430504447465,
+              -0.6006423776455103
+            ],
+            "north": [
+              -0.5457541134739498,
+              0.25338327250945175,
+              0.7987173247392748
+            ],
+            "length": 0.510364939388819,
+            "width": 0.13934117854107173,
+            "curve": -0.5000776519300416,
+            "moisture": 0.9640348791331053,
+            "development": 0.30270565003156663,
+            "baseAltitude": 2.820568248850759,
+            "depth": 0.30270565003156663,
+            "start": 8,
+            "count": 5
+          },
+          {
+            "center": [
+              -0.30943564196678436,
+              0.42510621156543493,
+              -0.8506081896908162
+            ],
+            "east": [
+              0.9437236749780838,
+              0.027442451887304438,
+              -0.32959450408080704
+            ],
+            "north": [
+              -0.1167698966620428,
+              -0.9047273737004405,
+              -0.4096744689514337
+            ],
+            "length": 0.5563284059520811,
+            "width": 0.1996530378353782,
+            "curve": -0.09737733611837031,
+            "moisture": 0.9433717599324882,
+            "development": 0.668857508711517,
+            "baseAltitude": 2.957269915821962,
+            "depth": 0.668857508711517,
+            "start": 13,
+            "count": 6
+          },
+          {
+            "center": [
+              0.8537315806730705,
+              0.16828506300225854,
+              0.49277025654130785
+            ],
+            "east": [
+              0.5206922121388287,
+              -0.2844252062894395,
+              -0.8049732431858729
+            ],
+            "north": [
+              0.004691308925394516,
+              0.9438127142593149,
+              -0.33044750267331546
+            ],
+            "length": 0.5134762455476448,
+            "width": 0.24632425363175572,
+            "curve": -0.051063399179838605,
+            "moisture": 0.7273290724679827,
+            "development": 0.4814526248723269,
+            "baseAltitude": 2.8961240779259243,
+            "depth": 0.4814526248723269,
+            "start": 19,
+            "count": 5
+          }
+        ],
+        "clearDirection": [
+          0.3199718332200899,
+          -0.9427083333333333,
+          0.09444058560631688
+        ],
+        "clearAngularRadius": 1.2324621427503892,
+        "cloudDistribution": {
+          "wisp": 2,
+          "streak": 6,
+          "broken": 14,
+          "billow": 2
+        },
+        "cloudBankDefinitions": [
+          {
+            "type": "broken",
+            "start": 0,
+            "count": 6,
+            "length": 2.2243333333694726,
+            "width": 1.7746928919529608,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.945260671672805,
+              -0.2945411261745043,
+              0.1404556427507698
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6177301511983387,
+            "baseRadius": 45.800251067034175,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 6,
+            "count": 6,
+            "length": 4.498084024960292,
+            "width": 3.370370423888424,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9669796246296954,
+              -0.13473291844021817,
+              0.21632717406649385
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.5396092022769153,
+            "baseRadius": 45.80925631309709,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 12,
+            "count": 6,
+            "length": 2.393832385264663,
+            "width": 1.9910310268596099,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.8083915017442534,
+              -0.5777244592688571,
+              -0.11286110521423023
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.48753522444749253,
+            "baseRadius": 45.84173932291126,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 18,
+            "count": 6,
+            "length": 3.6044366519264126,
+            "width": 3.5094576672426108,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.887520597216708,
+              -0.44171191584080993,
+              0.1311402795495703
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6392529089702293,
+            "baseRadius": 45.80952939292907,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 24,
+            "count": 6,
+            "length": 9.483106321945089,
+            "width": 3.4887854187118488,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9611671916520307,
+              0.01064555154560223,
+              0.2757613133201224
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.433351598714944,
+            "baseRadius": 45.81577273260213,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 30,
+            "count": 6,
+            "length": 6.149649701325342,
+            "width": 1.9946267768317876,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9256185961865765,
+              -0.12549948033357713,
+              0.35704354752549955
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.45802423227578404,
+            "baseRadius": 45.804578177257575,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 36,
+            "count": 7,
+            "length": 3.1620949602581705,
+            "width": 2.91272891581241,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9201624189010035,
+              0.09763053305282827,
+              0.37916935775201416
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.6724525137455203,
+            "baseRadius": 45.81632832824498,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 43,
+            "count": 6,
+            "length": 3.046206271920867,
+            "width": 3.1685892110996674,
+            "height": 3.6845540163293506,
+            "density": 0.9,
+            "center": [
+              -0.9403336448796019,
+              -0.26330581219981564,
+              0.21550565089862067
+            ],
+            "regionId": 0,
+            "groupId": 0,
+            "sizeClass": "large",
+            "depthScale": 0.49204111713916066,
+            "baseRadius": 45.78691593546149,
+            "coverage": 1
+          },
+          {
+            "type": "wisp",
+            "start": 49,
+            "count": 5,
+            "length": 4.285693769694009,
+            "width": 2.8407879670673233,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.462785029470465,
+              0.8854784733055968,
+              0.041927196548425756
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.18823269648710267,
+            "baseRadius": 45.80507953424093,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 54,
+            "count": 6,
+            "length": 9.947771597213531,
+            "width": 3.195561033888451,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.3349337631896741,
+              0.9319205032688657,
+              -0.13908109096030227
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.4174846304114908,
+            "baseRadius": 45.839103927533245,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 60,
+            "count": 6,
+            "length": 10.118618261917787,
+            "width": 3.247030177773679,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.08965011777609408,
+              0.9578041564600253,
+              -0.27308250447553706
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.3392960555967875,
+            "baseRadius": 45.847553798231225,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 66,
+            "count": 6,
+            "length": 8.061112342858845,
+            "width": 4.186189396244981,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.4827885069379291,
+              0.8690313238373146,
+              0.10816568660258928
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.3922729484504089,
+            "baseRadius": 45.80364005567662,
+            "coverage": 1
+          },
+          {
+            "type": "wisp",
+            "start": 72,
+            "count": 5,
+            "length": 2.484213200217248,
+            "width": 1.2091747560323034,
+            "height": 2.621363730132579,
+            "density": 0.9,
+            "center": [
+              0.10112189732164885,
+              0.9294603890174563,
+              -0.3547925409723111
+            ],
+            "regionId": 1,
+            "groupId": 1,
+            "sizeClass": "medium",
+            "depthScale": 0.21629320898791776,
+            "baseRadius": 45.84764637712628,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 77,
+            "count": 6,
+            "length": 3.7107034298425132,
+            "width": 3.3501092766936456,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.4468118008256547,
+              0.3100037709939101,
+              -0.8392001409750186
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6387195228831843,
+            "baseRadius": 45.96267269448375,
+            "coverage": 1
+          },
+          {
+            "type": "billow",
+            "start": 83,
+            "count": 7,
+            "length": 3.892792388789154,
+            "width": 2.724641407616668,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.34151515177246894,
+              0.44492430823655804,
+              -0.8278947765568084
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.7567732225521469,
+            "baseRadius": 45.96364058528871,
+            "coverage": 1
+          },
+          {
+            "type": "billow",
+            "start": 90,
+            "count": 7,
+            "length": 4.335145489585849,
+            "width": 3.7023595635034576,
+            "height": 4.15920153658837,
+            "density": 0.8845190027056529,
+            "center": [
+              0.07177467344057105,
+              0.5010633247561109,
+              -0.8624290932226553
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.7343501809751616,
+            "baseRadius": 45.92493514171311,
+            "coverage": 0.9655977837903397
+          },
+          {
+            "type": "broken",
+            "start": 97,
+            "count": 6,
+            "length": 4.962220108960546,
+            "width": 4.034768358556099,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.2747188689207334,
+              0.3132406168772212,
+              -0.9090708767732527
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6026194481761195,
+            "baseRadius": 45.988378139951564,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 103,
+            "count": 6,
+            "length": 4.294538824559173,
+            "width": 3.096532109958777,
+            "height": 4.15920153658837,
+            "density": 0.8421216509076428,
+            "center": [
+              -0.3643669411034264,
+              0.5950808099200992,
+              -0.7163208512222515
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.5452851790701971,
+            "baseRadius": 45.97712273607622,
+            "coverage": 0.8713814464614286
+          },
+          {
+            "type": "broken",
+            "start": 109,
+            "count": 6,
+            "length": 4.653497415119738,
+            "width": 3.776258204631873,
+            "height": 4.15920153658837,
+            "density": 0.9,
+            "center": [
+              -0.25724527776488815,
+              0.4585236017386492,
+              -0.8506356292304491
+            ],
+            "regionId": 2,
+            "groupId": 2,
+            "sizeClass": "medium",
+            "depthScale": 0.6611831228598022,
+            "baseRadius": 45.96941164452594,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 115,
+            "count": 6,
+            "length": 4.328769524406018,
+            "width": 4.7208855656122815,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.9385844641271084,
+              0.14184786171521974,
+              0.3145447310416256
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5327564859529957,
+            "baseRadius": 45.9092069567467,
+            "coverage": 1
+          },
+          {
+            "type": "streak",
+            "start": 121,
+            "count": 6,
+            "length": 10.016747266901788,
+            "width": 4.164116259666789,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.7232217782830279,
+              0.18949454884114983,
+              0.6641099874091819
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.3837477238615975,
+            "baseRadius": 45.905953770526835,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 127,
+            "count": 6,
+            "length": 3.358117111431447,
+            "width": 3.6511297694869893,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.8367407723350769,
+              0.2668118617651894,
+              0.4782011191261394
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5527075552730821,
+            "baseRadius": 45.889915627766975,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 133,
+            "count": 6,
+            "length": 3.8138880435723173,
+            "width": 3.8825029515222917,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.8386581031789839,
+              0.11961241269463142,
+              0.5313618886423809
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5614305039402098,
+            "baseRadius": 45.89300088373302,
+            "coverage": 1
+          },
+          {
+            "type": "broken",
+            "start": 139,
+            "count": 6,
+            "length": 2.782268126745997,
+            "width": 2.1416089692267835,
+            "height": 3.372101024463774,
+            "density": 0.9,
+            "center": [
+              0.7814830427738358,
+              0.14343060929868756,
+              0.6072165298912362
+            ],
+            "regionId": 3,
+            "groupId": 3,
+            "sizeClass": "medium",
+            "depthScale": 0.5697892444790341,
+            "baseRadius": 45.90096954275022,
+            "coverage": 1
+          }
+        ],
+        "cloudDensityRange": [
+          0.7388321786554966,
+          0.8998671078588814
+        ],
+        "cloudScaleRange": [
+          0.35770144347494176,
+          10.118618261917787
+        ],
+        "cloudRadius": 48,
+        "minCloudClearance": 2.25,
+        "maxCloudRadius": 51.8,
+        "cloudBounds": {
+          "inner": 45.25,
+          "outer": 51.8
+        },
+        "cloudDrawCalls": 3,
+        "cloudOpacity": 0.8,
+        "volumeMethod": "continuous weather-driven density",
+        "renderCalls": 275,
+        "directCalls": 8,
+        "highCalls": 267
+      },
+      "notice": "Two phases: 240 frames with isolated cloud GPU queries, then 240 frames with whole-frame GPU queries. Whole-frame GPU spans scene and all postprocessing; CPU submission and rAF are separate. Compare whole-frame off/Low/High at the same pose. Isolated pass timings are diagnostic and not additive to whole-frame timing: query boundaries may alter scheduling or tile resolves on deferred GPUs. Differences of separate p95 summaries are not paired-frame p95 costs. Unsupported/disjoint GPU samples are not inferred."
+    },
+    "notice": "One matched pose and run per setting on this machine. Differences of separate p95 summaries are not paired per-frame costs; negative/very small differences indicate run-to-run variance. These are whole-frame demo measurements, not ant-world or broad-device performance guarantees."
+  },
+  "errors": []
+}

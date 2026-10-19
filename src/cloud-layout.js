@@ -1,6 +1,15 @@
+import { generateHierarchicalCloudLayout } from './cloud-hierarchy.js';
+
+export function generateCloudLayout(options) {
+  const model = options.model === undefined ? 'weather' : options.model;
+  if (model === 'weather') return generateHierarchicalCloudLayout(options);
+  if (model === 'legacy') return generateLegacyCloudLayout(options);
+  throw new RangeError('Cloud model must be weather or legacy');
+}
+
 // Seeded, renderer-independent cloud morphology. Dimensions are ellipsoid radii.
 // A small fixed budget keeps all four silhouettes in one instanced draw call.
-export function generateCloudLayout({ seed, cloudRadius }) {
+export function generateLegacyCloudLayout({ seed, cloudRadius }) {
   let state = (seed ^ 0xa53c94d7) >>> 0;
   const rand = () => {
     state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
@@ -282,14 +291,13 @@ export function generateCloudLayout({ seed, cloudRadius }) {
   };
 }
 
-// Canonical ellipsoids shared by both renderers and the envelope-baking worker.
-// Conversion must not consume random numbers or change seeded placement,
-// morphology, or density. Both qualities consume this one canonical field.
-export function createCloudField({ seed, terrainRadius }) {
+// Canonical Low geometry plus the shared weather descriptor. Legacy High uses
+// the same ellipsoids; weather High samples continuous 3D density instead.
+export function createCloudField({ seed, terrainRadius, model = 'weather' }) {
   if (!Number.isFinite(terrainRadius) || terrainRadius <= 0)
     throw new RangeError('A positive terrain envelope radius is required');
   const cloudRadius = terrainRadius + 5,
-    layout = generateCloudLayout({ seed, cloudRadius }),
+    layout = generateCloudLayout({ seed, cloudRadius, model }),
     puffs = [];
   let inner = Infinity,
     outer = 0;
@@ -314,6 +322,7 @@ export function createCloudField({ seed, terrainRadius }) {
       radii,
       density: puff.density,
       bankId: puff.bankIndex,
+      ...(puff.baseRadius === undefined ? {} : { baseRadius: puff.baseRadius }),
     });
     // The radial axis points through the planet origin. The exact lower bound is
     // therefore R - ry. For the upper bound maximize the meridional ellipse in
@@ -327,12 +336,18 @@ export function createCloudField({ seed, terrainRadius }) {
     outer = Math.max(outer, farthest);
   }
   return {
-    seed,
+    model,
+    modelVersion: model === 'weather' ? 2 : 1,
+    ...(layout.weather ? { weather: layout.weather } : {}),
+    seed: layout.weather?.seed ?? seed,
     terrainRadius,
     layout,
     puffs,
-    bounds: { inner, outer },
+    bounds: {
+      inner: Math.min(inner, layout.weather?.bounds.inner ?? inner),
+      outer: Math.max(outer, layout.weather?.bounds.outer ?? outer),
+    },
     cloudRadius,
-    minCloudClearance: inner - terrainRadius,
+    minCloudClearance: Math.min(inner, layout.weather?.bounds.inner ?? inner) - terrainRadius,
   };
 }

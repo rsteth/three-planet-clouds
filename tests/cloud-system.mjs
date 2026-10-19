@@ -101,6 +101,7 @@ for (const supported of [false, true]) {
     disposals = 0,
     w;
   const custom = createCloudSystem({
+    model: 'legacy',
     scene,
     renderer,
     terrainRadius: 43,
@@ -158,4 +159,28 @@ for (const supported of [false, true]) {
 }
 console.log(
   'PASS requested/effective High fallback, successful High handoff, ready-but-hidden work suppression, persistent requests and idempotent High disposal',
+);
+
+let v2Worker, request;
+const v2 = createCloudSystem({
+  scene,
+  renderer,
+  terrainRadius: 43,
+  seed: 39,
+  storage: null,
+  workerFactory: () => (v2Worker = { postMessage: (data) => (request = data), terminate() {} }),
+});
+v2.setPreferences({ quality: 'high' });
+v2.update(0, { view: 'world' });
+assert.equal(request.version, 2);
+assert.equal(request.weather.version, 2);
+assert.deepEqual(request.bounds, request.weather.bounds);
+v2Worker.onmessage({ data: { type: 'ready', requestId: request.requestId, envelope: {} } });
+assert.equal(v2.stats().resourceReadiness, 'failed');
+assert.match(v2.stats().resourceError, /update the module worker/);
+v2.render(scene, camera);
+assert.equal(v2.stats().effectiveQuality, 'low');
+v2.dispose();
+console.log(
+  'PASS v2 coordinator sends shared weather and rejects stale-format workers with explicit Low fallback.',
 );

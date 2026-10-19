@@ -14,6 +14,8 @@ These are acknowledgments of influence, not claims of endorsement or drop-in com
 
 ## Research and rendering foundations
 
+Version 0.2's hierarchical morphology was also informed by [SideFX Cloud Shape Generate](https://www.sidefx.com/docs/houdini/nodes/sop/cloudshapegenerate.html) and the illustrated [cloud-modeling workflow](https://www.sidefx.com/docs/houdini/model/cloud.html): primary/secondary forms, varied scales, and coherent bases. The spherical weather field and its density construction are newly authored here. No Houdini code, dependency, or VDB asset is bundled.
+
 - **Andrew Schneider and the Guerrilla team — [Nubis, Evolved](https://www.guerrilla-games.com/read/nubis-evolved)**. A useful reference for envelope-driven cloud modeling and avoiding temporal artifacts. This small renderer is not a reproduction of the Nubis system.
 - **Ken Perlin — [Improving Noise](https://mrl.cs.nyu.edu/~perlin/paper445.pdf), 2002**. Gradient noise and the quintic interpolation curve.
 - **Steven Worley — [A Cellular Texture Basis Function](https://doi.org/10.1145/237170.237267), 1996**. Nearest-feature cellular noise.

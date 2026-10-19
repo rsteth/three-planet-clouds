@@ -1,15 +1,17 @@
 # Three Planet Clouds
 
-![High clouds in the standalone demonstration](docs/images/high-world.png)
+![Weather-driven High clouds in the standalone demonstration](docs/images/high-world.png)
 
-Seeded planetary clouds for Three.js, extracted from **ant-world**. A shared field of ellipsoids supports two rendering modes:
+Seeded planetary clouds for Three.js, originally extracted from **ant-world**. Version **0.2.0** adds a shared spherical weather field with two rendering modes:
 
-- **Low:** one instanced draw, shaded ellipsoids, no density textures.
-- **High:** a single spherical-shell raymarch, a baked angular envelope, periodic 3D density noise, and depth-aware reconstruction.
+- **Low:** one instanced draw of branching cloud shapes with shared bases, without density textures.
+- **High:** a spherical-shell raymarch through continuous 3D density, with weather coverage, local heights, and independent nearby erosion.
 
-Both modes use the same regional weather layout and wind transform. High falls back to Low while resources load or if the required graphics features are unavailable. Visibility is independently configurable for **Ant**, **World**, and **System** views.
+Both use the same weather conditions and wind. Low approximates High's distribution; their detailed silhouettes differ. High falls back to Low during loading or when graphics features are unavailable. Ant, World, and System visibility controls remain independent.
 
-Built by Robin Stethem. This work was informed by [Faraz Shaikh’s envelope-based clouds](https://github.com/FarazzShaikh/three-volumetric-clouds), [Leonardo Soares Gonçalves’s volumetric clouds](https://github.com/leoawen/volumetric-clouds), and [Shota Matsuda / Takram’s three-clouds](https://github.com/takram-design-engineering/three-geospatial/tree/main/packages/clouds). See [Credits](CREDITS.md) for the specific influences and shader attributions.
+**For the next agent updating ant-world:** start with [Ant-world migration](docs/ANT-WORLD-MIGRATION.md) and [Enhancements](docs/ENHANCEMENTS.md). The guide identifies the coordinated file changes, worker protocol, preserved game adapters, tests, and acceptance cases.
+
+Built by Robin Stethem. This work was informed by [Faraz Shaikh](https://github.com/FarazzShaikh/three-volumetric-clouds), [Leonardo Soares Gonçalves](https://github.com/leoawen/volumetric-clouds), [Shota Matsuda / Takram](https://github.com/takram-design-engineering/three-geospatial/tree/main/packages/clouds), and the cloud-modeling references in [Credits](CREDITS.md).
 
 ## Run the demo
 
@@ -20,7 +22,9 @@ npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:4173**. No build step, CDN, account, or external texture downloads are needed. The demo includes both quality modes, three camera presets, per-view visibility switches, seeded regeneration, wind pause, and an optional measurement capture.
+Open **http://127.0.0.1:4173**. No build step, CDN, account, or external texture download is needed.
+
+The demo includes Weather/Legacy model comparison, Low/High quality, three views, per-view visibility switches, cloudy/clear and Ant horizon/cloud-height inspection poses, seeded regeneration, wind pause, diagnostics, and optional measurement capture. Switching model preserves the camera pose; changing an inspection pose reframes it.
 
 ```sh
 npm test
@@ -28,7 +32,7 @@ npm run format:check
 npm pack
 ```
 
-This is a local source release; the package name is not a claim of npm availability. To use it in another project, install the tarball produced by `npm pack`, together with **Three.js 0.169.0**. That exact peer version is deliberate: High patches shader compilation and relies on renderer behavior tested against r169.
+Install the generated tarball into another project together with **three@0.169.0**. The package name does not imply npm registry availability. The exact peer version is deliberate: High patches shader compilation and relies on r169 renderer behavior.
 
 ## Minimal integration
 
@@ -36,8 +40,8 @@ This is a local source release; the package name is not a claim of npm availabil
 import * as THREE from 'three';
 import { createCloudSystem } from 'three-planet-clouds';
 
-// scene, camera, and renderer belong to your application.
-// Render one planet centered at (0, 0, 0), in the library's small-world units.
+// scene, camera and renderer belong to the application.
+// Keep the planet centered at (0,0,0), in small-world units.
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.setClearColor('#10252e');
@@ -45,74 +49,67 @@ renderer.setClearColor('#10252e');
 const clouds = createCloudSystem({
   scene,
   renderer,
-  terrainRadius: 43, // upper bound of the terrain surface
-  planetRadius: 40, // solid sphere used to block sunlight
+  terrainRadius: 43, // terrain envelope, not mean sea level
+  planetRadius: 40, // solid sunlight blocker
   seed: 39,
-  storage: null, // disable persistence; omit to use localStorage
+  model: 'weather', // default; 'legacy' selects the 0.1 comparison
+  config: { wavelength: 18, erosion: 0.22, detailDistance: 160 },
+  storage: null, // omit to use localStorage
 });
+clouds.setPreferences({ quality: 'low', ant: true, world: true, system: false });
 
-clouds.setPreferences({
-  quality: 'low',
-  ant: true,
-  world: true,
-  system: false,
-});
-
+const sun = new THREE.Vector3(-0.4, 0.8, 0.5).normalize();
 const clock = new THREE.Clock();
 function frame() {
   requestAnimationFrame(frame);
-  clouds.update(Math.min(clock.getDelta(), 0.1), {
-    view: 'world', // 'ant', 'world', 'system', or null to hide
-    sunDirection: new THREE.Vector3(-0.4, 0.8, 0.5).normalize(),
-  });
-  // This renders the complete scene. Do not render it again afterward.
-  clouds.render(scene, camera);
+  clouds.update(Math.min(clock.getDelta(), 0.1), { view: 'world', sunDirection: sun });
+  clouds.render(scene, camera); // owns the complete scene render
 }
 frame();
 
-// After renderer.setSize(...) and camera projection updates:
+// After renderer size and camera projection changes:
 clouds.resize();
-
-// On teardown, after stopping your animation loop:
+// On teardown, after stopping the animation loop:
 clouds.dispose();
 ```
 
-Reuse the sun vector in a real animation loop; it is created inline above to keep the example self-contained. Cameras must use conventional WebGL depth. Host the modules over HTTP(S); the High resource baker is a module worker. See [Integration](docs/INTEGRATION.md) for bundlers, custom materials, ownership, and unsupported configurations.
+Serve modules over HTTP(S); High baking uses a module worker. [Integration](docs/INTEGRATION.md) covers worker deployment, Three deduplication, materials, color management, and rendering ownership.
 
-## What is included
+## Included budgets
 
-| Part            | Implementation                                                                                               |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| Regional field  | 24 banks in four unequal weather regions; at most 180 puffs                                                  |
-| Low geometry    | 120 triangles per puff; at most 21,600 instanced triangles                                                   |
-| High envelope   | Six 128 × 128 RGBA8 cubemap faces                                                                            |
-| Density texture | 64³ R8 periodic gradient–Worley noise                                                                        |
-| Sample jitter   | Fixed 32 × 32 blue-noise rank mask                                                                           |
-| High raymarch   | 48 primary samples shared between up to two shell intervals; two sunlight samples for occupied primary steps |
-| High resolution | At most half width/height and at most 262,144 cloud pixels                                                   |
-| Final image     | Linear radiance composition, explicit output transform, display-space FXAA                                   |
-| Defaults        | Low quality; Ant and World visible; System hidden                                                            |
+| Part             | Weather model                                                                                    |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| Regional field   | 18–24 banks in three/four fronts; at most 180 puffs                                              |
+| Low              | 120 triangles per puff; one configured instanced draw                                            |
+| Weather map      | Six 128² RGBA8 cubemap faces                                                                     |
+| Base and detail  | 64³ R8 base plus independently seeded 32³ R8 detail                                              |
+| Sample jitter    | Fixed 32² R8 blue-noise rank mask                                                                |
+| High integration | 48 primary steps total across up to two shell intervals; two sunlight samples for occupied steps |
+| Cloud resolution | At most half width/height and at most 262,144 cloud pixels                                       |
+| High passes      | One scene capture plus raymarch, reconstruction/composition, and display-space FXAA              |
+| Defaults         | Weather model; Low quality; Ant/World visible; System hidden                                     |
 
-There is no temporal reprojection, cloud shadow map on terrain, atmosphere simulation, WebGPU backend, or automatic performance-based quality selection. The layout is artistic, not a meteorological simulation.
+The generator uses artistic weather fields rather than fluid simulation. There is no terrain cloud-shadow map, temporal reconstruction, automatic performance-based quality switching, or WebGPU backend.
 
 ## Documentation
 
-- [Math and rendering technique](docs/TECHNIQUE.md): equations, coordinate systems, density construction, transport, reconstruction, and approximations.
-- [API](docs/API.md): lifecycle, settings, low-level modules, worker messages, diagnostics.
-- [Integration and compatibility](docs/INTEGRATION.md): render ownership, version constraints, failure behavior, scaling, and color management.
-- [Performance](docs/PERFORMANCE.md): work and memory budgets, measurement protocol, historical ant-world results.
-- [Validation](docs/VALIDATION.md): automated coverage, browser checks, and remaining device coverage.
+- [Enhancements](docs/ENHANCEMENTS.md): what changed and the limits of the two representations.
+- [Ant-world migration](docs/ANT-WORLD-MIGRATION.md): handoff for the later game integration.
+- [Technique](docs/TECHNIQUE.md): weather, hierarchical geometry, density equations, sampling, and approximations.
+- [Legacy technique](docs/LEGACY-TECHNIQUE.md): archived v0.1 modeling and the shared transport/output derivations.
+- [API](docs/API.md) and [Integration](docs/INTEGRATION.md).
+- [Performance](docs/PERFORMANCE.md) and [Validation](docs/VALIDATION.md).
 - [Provenance](docs/PROVENANCE.md), [Credits](CREDITS.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
 - [Contributing](CONTRIBUTING.md) and [Changelog](CHANGELOG.md).
 
-## Performance expectations
+## Performance scope
 
-Low is the default for broad device support. High deliberately bounds density evaluation, but scene capture and the last two passes still run at full drawing-buffer resolution. A high device-pixel ratio can therefore be expensive even when the cloud pixel cap has been reached.
+Low remains the default for broad support. High keeps the existing sample and pixel caps, but its occupancy and texture work changed. Full-resolution capture and composition also scale with the drawing buffer. Device-pixel ratio can matter even after the cloud pixel cap is reached.
 
-The original ant-world project recorded approximately **4.17 ms difference between separate whole-frame GPU p95 summaries** for High versus clouds off on one Apple M5 / Chrome configuration. That is historical evidence, not a portable per-frame cost or a mobile guarantee. The detailed conditions and measurement caveats are in [Performance](docs/PERFORMANCE.md). Targeting 30 fps means budgeting the complete frame within about 33.3 ms.
+Earlier M5/Chrome measurements belong to the legacy model and cannot establish the weather model's cost. See [Performance](docs/PERFORMANCE.md) for budgets and the matched measurement protocol. Thirty fps gives the entire application approximately 33.3 ms per frame.
 
 ## License
 
-Original project code and documentation are available under the [MIT License](LICENSE). Retain the [third-party notices](THIRD_PARTY_NOTICES.md) and files in [licenses/](licenses/) when redistributing the associated shader portions. Referenced cloud projects are credited as inspiration; their complete renderers and assets are not bundled.
+Original code and documentation use the [MIT License](LICENSE). Retain [third-party notices](THIRD_PARTY_NOTICES.md) and the [licenses directory](licenses/) with the associated shader portions.
 
-A remote repository and package publication are intentionally separate from this source release.
+The public source repository is [rsteth/three-planet-clouds](https://github.com/rsteth/three-planet-clouds). No npm registry publication is assumed.

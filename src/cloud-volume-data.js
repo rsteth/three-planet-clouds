@@ -1,3 +1,5 @@
+import { createWeatherSampler, CLOUD_WEATHER_SIZE } from './cloud-weather.js';
+
 // Pure, renderer-independent cloud baking. Full cubemap/voxel loops belong in
 // cloud-volume-worker.js; importing this module does not generate any resources.
 export const CLOUD_ENVELOPE_SIZE = 128;
@@ -206,6 +208,32 @@ export function bakeEnvelope(puffs, bounds, size = CLOUD_ENVELOPE_SIZE) {
         sample(direction, rgba);
         const offset = (y * size + x) * 4;
         for (let c = 0; c < 4; c++) bytes[offset + c] = Math.round(clamp01(rgba[c]) * 255);
+      }
+    faces.push(bytes);
+  }
+  return faces;
+}
+
+// RGBA8: coverage, normalized base, normalized top, development. Heights remain
+// valid in clear directions. This describes weather, not an ellipsoid union.
+export function bakeWeatherMap(weather, size = CLOUD_WEATHER_SIZE) {
+  checkedSize(size);
+  const sample = createWeatherSampler(weather),
+    faces = [];
+  const direction = new Float64Array(3),
+    values = new Float64Array(4);
+  const { inner, outer } = weather.bounds,
+    span = outer - inner;
+  for (let face = 0; face < 6; face++) {
+    const bytes = new Uint8Array(size * size * 4);
+    for (let y = 0; y < size; y++)
+      for (let x = 0; x < size; x++) {
+        cubeDirection(face, (2 * (x + 0.5)) / size - 1, (2 * (y + 0.5)) / size - 1, direction);
+        sample(direction, values);
+        values[1] = (values[1] - inner) / span;
+        values[2] = (values[2] - inner) / span;
+        const offset = (y * size + x) * 4;
+        for (let k = 0; k < 4; k++) bytes[offset + k] = Math.round(clamp01(values[k]) * 255);
       }
     faces.push(bytes);
   }

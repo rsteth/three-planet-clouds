@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
-import { createCloudField, generateCloudLayout } from '../src/cloud-layout.js';
+import {
+  createCloudField as create,
+  generateCloudLayout as generate,
+} from '../src/cloud-layout.js';
+const generateCloudLayout = (options) => generate({ ...options, model: 'legacy' });
+const createCloudField = (options) => create({ ...options, model: 'legacy' });
 
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const angle = (a, b) => Math.acos(Math.max(-1, Math.min(1, dot(a, b))));
