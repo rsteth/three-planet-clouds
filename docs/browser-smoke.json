@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-18",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "visibilityCases": [
+    {
+      "quality": "low",
+      "view": "ant",
+      "visible": false,
+      "status": "Clouds hidden in ant view."
+    },
+    {
+      "quality": "low",
+      "view": "ant",
+      "visible": true,
+      "status": "Instanced clouds · 155 puffs in 24 banks"
+    },
+    {
+      "quality": "low",
+      "view": "world",
+      "visible": false,
+      "status": "Clouds hidden in world view."
+    },
+    {
+      "quality": "low",
+      "view": "world",
+      "visible": true,
+      "status": "Instanced clouds · 155 puffs in 24 banks"
+    },
+    {
+      "quality": "low",
+      "view": "system",
+      "visible": false,
+      "status": "Clouds hidden in system view."
+    },
+    {
+      "quality": "low",
+      "view": "system",
+      "visible": true,
+      "status": "Instanced clouds · 155 puffs in 24 banks"
+    },
+    {
+      "quality": "high",
+      "view": "ant",
+      "visible": false,
+      "status": "Clouds hidden in ant view."
+    },
+    {
+      "quality": "high",
+      "view": "ant",
+      "visible": true,
+      "status": "Volumetric clouds · 155 puffs in 24 banks"
+    },
+    {
+      "quality": "high",
+      "view": "world",
+      "visible": false,
+      "status": "Clouds hidden in world view."
+    },
+    {
+      "quality": "high",
+      "view": "world",
+      "visible": true,
+      "status": "Volumetric clouds · 155 puffs in 24 banks"
+    },
+    {
+      "quality": "high",
+      "view": "system",
+      "visible": false,
+      "status": "Clouds hidden in system view."
+    },
+    {
+      "quality": "high",
+      "view": "system",
+      "visible": true,
+      "status": "Volumetric clouds · 155 puffs in 24 banks"
+    }
+  ],
+  "regenerationCycles": [
+    {
+      "seed": 101,
+      "allocations": {
+        "geometries": 3,
+        "textures": 9,
+        "programs": 6
+      },
+      "targets": 3,
+      "error": null
+    },
+    {
+      "seed": 39,
+      "allocations": {
+        "geometries": 3,
+        "textures": 9,
+        "programs": 6
+      },
+      "targets": 3,
+      "error": null
+    },
+    {
+      "seed": 101,
+      "allocations": {
+        "geometries": 3,
+        "textures": 9,
+        "programs": 6
+      },
+      "targets": 3,
+      "error": null
+    },
+    {
+      "seed": 39,
+      "allocations": {
+        "geometries": 3,
+        "textures": 9,
+        "programs": 6
+      },
+      "targets": 3,
+      "error": null
+    }
+  ],
+  "resize": {
+    "portrait": {
+      "width": 310,
+      "height": 672,
+      "sceneWidth": 621,
+      "sceneHeight": 1344
+    },
+    "restored": {
+      "width": 682,
+      "height": 384,
+      "sceneWidth": 1920,
+      "sceneHeight": 1080
+    },
+    "allocationsAfter": {
+      "geometries": 3,
+      "textures": 9,
+      "programs": 6
+    }
+  },
+  "measurement": {
+    "completed": true,
+    "samples": 240,
+    "notice": "Functional capture check only; this was not a matched off/Low/High performance benchmark."
+  },
+  "errors": []
+}

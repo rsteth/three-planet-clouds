@@ -1,0 +1,7 @@
+{
+  "blueNoise": {
+    "source": "src/cloud-volume-data.js: fixedBlueNoise()",
+    "bytes": 1024,
+    "sha256": "a2d8a39ee9d84fcf69655ce1aff8db8cc6461b78f2aa12aac6dd0678c2ae84c3"
+  }
+}

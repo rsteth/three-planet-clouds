@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Three Planet Clouds</title>
+    <link rel="stylesheet" href="/demo/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three/addons/": "/node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main id="viewport" aria-label="Interactive planetary cloud scene"></main>
+    <aside>
+      <p class="eyebrow">A small atmosphere</p>
+      <h1>Three Planet Clouds</h1>
+      <p class="intro">One weather field. Two ways to render it.</p>
+      <div class="controls">
+        <label
+          >Cloud quality
+          <select id="quality">
+            <option value="low">Low · shaded shapes</option>
+            <option value="high">High · volumetric</option>
+          </select></label
+        >
+        <label
+          >Camera
+          <select id="view">
+            <option value="world">World</option>
+            <option value="ant">Ant</option>
+            <option value="system">System</option>
+          </select></label
+        >
+        <fieldset>
+          <legend>Show clouds in</legend>
+          <label><input id="ant" type="checkbox" checked /> Ant</label
+          ><label><input id="world" type="checkbox" checked /> World</label
+          ><label><input id="system" type="checkbox" /> System</label>
+        </fieldset>
+        <label
+          >Weather seed <input id="seed" type="number" min="0" max="4294967295" step="1" value="39"
+        /></label>
+        <button id="regenerate">Generate weather</button>
+        <label class="inline"><input id="pause" type="checkbox" /> Pause wind</label>
+      </div>
+      <p id="status" role="status">Starting renderer…</p>
+      <dl id="metrics"></dl>
+      <button id="measure">Measure this view</button>
+      <p id="measurement">
+        Warm up the scene before measuring. GPU timings depend on browser support.
+      </p>
+      <details>
+        <summary>About the demo</summary>
+        <p>
+          Drag to orbit; scroll to zoom. In Ant view, drag to look around. System clouds start
+          hidden. High stays on Low while its worker prepares the textures, or if required GPU
+          features are unavailable.
+        </p>
+        <p>
+          This is a procedural demonstration planet. Cloud rendering is extracted from ant-world.
+        </p>
+        <p>
+          <a href="/README.md">Readme</a> · <a href="/docs/TECHNIQUE.md">Math & technique</a> ·
+          <a href="/CREDITS.md">Credits</a>
+        </p>
+      </details>
+      <details>
+        <summary>Diagnostics</summary>
+        <pre id="diagnostics"></pre>
+      </details>
+      <p class="credit">
+        With thanks to Faraz Shaikh, Leonardo Soares Gonçalves, Shota Matsuda / Takram, and the
+        Three.js community.
+      </p>
+    </aside>
+    <script type="module" src="/demo/main.js"></script>
+  </body>
+</html>

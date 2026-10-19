@@ -1,0 +1,54 @@
+{
+  "name": "three-planet-clouds",
+  "version": "0.1.0",
+  "description": "Two quality levels of seeded planetary clouds for Three.js: instanced ellipsoids and single-shell volumetric raymarching.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Robin Stethem",
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./layout": "./src/cloud-layout.js",
+    "./volume-data": "./src/cloud-volume-data.js",
+    "./worker": "./src/cloud-volume-worker.js",
+    "./high": "./src/cloud-high.js",
+    "./low": "./src/cloud-low.js",
+    "./preferences": "./src/cloud-preferences.js",
+    "./measurement": "./src/cloud-measurement.js"
+  },
+  "files": [
+    "src",
+    "docs",
+    "licenses",
+    "README.md",
+    "CREDITS.md",
+    "THIRD_PARTY_NOTICES.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node scripts/test.mjs",
+    "format": "prettier --write src tests demo scripts *.md docs/*.md *.json .prettierrc.json",
+    "format:check": "prettier --check src tests demo scripts *.md docs/*.md *.json .prettierrc.json",
+    "prepack": "npm test"
+  },
+  "peerDependencies": {
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "three": "0.169.0",
+    "prettier": "3.6.2"
+  },
+  "keywords": [
+    "three",
+    "threejs",
+    "clouds",
+    "volumetric",
+    "planet",
+    "webgl",
+    "raymarching"
+  ]
+}

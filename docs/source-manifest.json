@@ -1,0 +1,22 @@
+{
+  "sourceProject": "ant-world",
+  "sourceCommit": "23eb201f9a8a63ab1a8963ca05814597f96321a4",
+  "extractedOn": "2026-10-18",
+  "sourceFiles": {
+    "dist/cloud-layout.js": "fd82fbfd39eac2d170e698e348979f34d4003acbad8ebc667abce184a8359183",
+    "dist/cloud-low.js": "d7a88c68556f6121fce88f3a6ee85a4916d732a975eced264438f47decf30334",
+    "dist/cloud-volume-data.js": "5fc71fc0dda27651b011f58393c14341fc407b74b2987c82bb8a13912251b1af",
+    "dist/cloud-volume-worker.js": "7f3c81aeb8ee618f19676e193d8259103f3f35e3dc37fe430b264ecbb6019969",
+    "dist/cloud-high.js": "feab0b1b3fed0982e99746a80e857e30378146a46a0411808baaca419d81af67",
+    "dist/cloud-system.js": "8ff8fa4d79f6be3bcb1caac228bf6fb2f7ac9e831b2226187714b6c223cb59f8",
+    "dist/cloud-preferences.js": "71f3687aca8f4e5a7ac852467ec51631185d49e61656320c0a56eba7925cb6ea",
+    "dist/cloud-measurement.js": "c7519bee95be743225d75174d4807d261e954134249b2e135901ea7c60a91063",
+    "tests/cloud-preferences.mjs": "bb609695e70de9b12dfbe80366e6e4e8fbb7fd7db0f9e97d87d2de45276bee6b",
+    "tests/cloud-low.mjs": "f697ae81491a7933c64d9cb17f52fa9ddad74695eb38e7f8b71b2462bb7dc31b",
+    "tests/cloud-regions.mjs": "e143aaa3a925640b52d6af22ab3e2df29c3382165d4ddae047037f2e81ce7a5c",
+    "tests/cloud-volume-data.mjs": "0c46a8a8f96e7f80659231b1ac31de0d6235f2b515f03c156ab162cca4cbb1e8",
+    "tests/cloud-high.mjs": "e3b4c1b75b8a1fede59eb70d5d6b8e7efe76715a02f9fd15892b61807d23cc61",
+    "tests/cloud-system.mjs": "f0b3003b48382c58253535a75c24433807557da7609585b1589580aa417eb210",
+    "tests/cloud-measurement.mjs": "9c3ee0f4f70efed5f543c8f2de6122c014b197030f354b26c21a9d9dbc6ea87a"
+  }
+}
